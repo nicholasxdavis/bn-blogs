@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Blacnova | TIIO vs Streaming Apps</title>
+    <meta name="description" content="Research notes comparing TIIO’s offline-first media hub to Spotify, YouTube, Netflix, and Hulu across resource usage, architecture, and privacy.">
+    <link rel="icon" href="../../logo.png" type="image/png" />
+    <meta name="keywords" content="Blacnova, TIIO, resource comparison, offline media, Spotify, Netflix, Plex, Jellyfin">
+    <meta name="author" content="Blacnova Development">
+    <link rel="canonical" href="https://www.blacnova.net/blog/tiio-vs-streaming/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.blacnova.net/blog/tiio-vs-streaming/">
+    <meta property="og:title" content="Blacnova | TIIO vs Streaming Apps">
+    <meta property="og:description" content="See how TIIO stacks up against the most common streaming tools for footprint, deployment, and privacy.">
+    <meta property="og:image" content="https://www.blacnova.net/img/logo_white.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://www.blacnova.net/blog/tiio-vs-streaming/">
+    <meta name="twitter:title" content="Blacnova | TIIO vs Streaming Apps">
+    <meta name="twitter:description" content="Resource and privacy comparison for TIIO versus mainstream streaming services.">
+    <meta name="twitter:image" content="https://www.blacnova.net/img/logo_white.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bn-soft': '#FAF9EE',
+                        'bn-green': '#1A1A1a',
+                        'bn-white': '#EEEEEE',
+                        'bn-black': '#010101',
+                        'bn-dark': '#1A1A1A',
+                        forge: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+        }
+        .blog-content {
+            color: #d1d5db;
+        }
+        .blog-content h2 {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 600;
+            color: #fff;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+        .blog-content p {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .blog-content a {
+            color: #d4611c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .blog-content a:hover {
+            text-decoration: underline;
+        }
+        .blog-content img {
+            border-radius: 0.75rem;
+            
+            
+        }
+        .toc {
+            border: 1px solid #374151;
+            background-color: #000;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .toc h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+        .toc a {
+            color: #d4611c;
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            color: #e67e2d;
+            text-decoration: underline;
+        }
+        html, body {
+            overflow-x: hidden;
+        }
+        .header {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .header.scrolled {
+            background-color: rgba(0, 0, 0, 0.95);
+        }
+        .header-content, .logo {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-menu {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: rgba(10, 10, 10, 0.98);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-menu.closed { transform: translateX(100%); }
+        .nav-link { position: relative; }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after { width: 100%; }
+        .btn-primary {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            color: #000;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+        .download-button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 999px;
+            font-weight: 600;
+            color: #000;
+            background: linear-gradient(135deg, #ffffff 0%, #f5c099 45%, #e2742f 100%);
+            box-shadow: 0 18px 30px rgba(226, 116, 47, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+        .download-button::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.4) 45%, rgba(255, 255, 255, 0.7) 52%, transparent 60%);
+            transform: translateX(-120%) skewX(-20deg);
+            animation: button-shimmer 2.6s infinite;
+        }
+        .download-button span,
+        .download-button i {
+            position: relative;
+            z-index: 1;
+        }
+        .download-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 22px 38px rgba(226, 116, 47, 0.35);
+        }
+        .download-button i {
+            font-size: 0.95rem;
+        }
+        @keyframes button-shimmer {
+            0% {
+                transform: translateX(-120%) skewX(-20deg);
+            }
+            60% {
+                transform: translateX(220%) skewX(-20deg);
+            }
+            100% {
+                transform: translateX(220%) skewX(-20deg);
+            }
+        }
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-dropdown-content.open {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
+        .rotate-0 {
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+            transition: transform 0.3s ease;
+        }
+
+        .app-badge {
+            width: 68px;
+            height: 68px;
+            min-width: 68px;
+            min-height: 68px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            margin: 0 auto;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .card {
+            position: relative;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .card::before {
+            content: "";
+            pointer-events: none;
+            border-radius: 4px;
+            border: 1px solid rgba(237, 236, 236, 0.04);
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .card--text {
+            background-color: #161618;
+            padding: 1.5rem;
+            display: block;
+            position: relative;
+            z-index: 1;
+            transition: background-color 0.2s ease;
+        }
+
+        .card--text:hover {
+            background-color: #1c1c1e;
+        }
+
+        .compare-panel {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            color: #000;
+        }
+
+        .compare-panel table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            table-layout: fixed;
+        }
+
+        .compare-panel th,
+        .compare-panel td {
+            padding: 0.75rem 1rem;
+            vertical-align: middle;
+            word-break: break-word;
+        }
+
+        .compare-panel thead th {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        .compare-panel tbody tr + tr td {
+            border-top: 1px solid #000;
+        }
+
+        .compare-panel tbody tr:last-child td {
+            border-bottom: 1px solid #000;
+        }
+
+        .compare-panel td + td,
+        .compare-panel th + th {
+            border-left: 1px solid #000;
+        }
+
+        .compare-panel tbody td:first-child,
+        .compare-panel thead th:first-child {
+            border-left: none;
+        }
+
+        .app-cell {
+            text-align: center;
+            padding: 0.5rem 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="header fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="header-content flex justify-between items-center h-24">
+                <div class="flex items-center">
+                    <a href="../../index.html" class="flex items-center">
+                        <img src="https://www.blacnova.net/img/logo_white.png" alt="Blacnova Logo" class="logo h-20">
+                    </a>
+                </div>
+
+                <nav class="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2">
+                    <div class="flex space-x-8">
+                        <!-- Intentionally blank to match global layout -->
+                    </div>
+                </nav>
+
+                <a href="https://github.com/nicholasxdavis/tiio-downloads/raw/main/download/beta/TIIO%20Setup.exe"
+                   class="download-button hidden md:inline-flex"
+                   download>
+                    <span>Download</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-prose mx-auto px-4 py-16 lg:py-24 mt-24">
+        <header>
+            <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-white mb-4">
+                TIIO vs Streaming Apps: System + Privacy Comparison
+            </h1>
+            <p class="text-xl text-gray-400 mb-8">
+                Nov 14, 2025 · Research notes by <span class="font-medium text-gray-200">Blacnova</span>
+            </p>
+        </header>
+
+        <article class="blog-content">
+            <p>
+                TIIO stays light because it never phones home. Everything the app needs from UI assets to playback stacks ship with the installer, so playback feels instant even when the internet is down. Below is a side-by-side look at how TIIO behaves on Windows 11 Pro versus the streaming tools people open every day, plus an architecture snapshot that surfaces the privacy and deployment deltas against Plex and Jellyfin.
+            </p>
+
+            <nav class="toc">
+                <h3>Contents</h3>
+                <ul>
+                    <li><a href="#overview">Key Takeaways</a></li>
+                    <li><a href="#resource-footprint">System Resource Footprint</a></li>
+                    <li><a href="#architecture-privacy">Architecture & Privacy Snapshot</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+
+            <h2 id="overview">Key Takeaways</h2>
+            <p>
+                The pattern across every measurement: TIIO’s standalone desktop build avoids the memory spikes that ship with apps designed for constant streaming, and it never transmits metadata outside your machine. Spotify, YouTube, Netflix, and Hulu all require active network connections, background services, DRM layers, and telemetry. TIIO runs the same whether you are in airplane mode or fully offline because nothing streams, nothing syncs, and nothing is cached remotely.
+            </p>
+            <ul class="space-y-4 text-lg text-gray-300 list-disc pl-6">
+                <li><strong class="text-white">No background drain:</strong> TIIO idles near 0% CPU when you pause playback, while browser tabs keep decoding pipelines and ad surfaces alive.</li>
+                <li><strong class="text-white">Predictable RAM ceiling:</strong> Typical sessions stay near ~150&nbsp;MB, even with large local libraries indexed.</li>
+                <li><strong class="text-white">Simpler deployment:</strong> Install once, point at folders, and work offline with no accounts, servers, or reverse proxies.</li>
+            </ul>
+
+            <h2 id="resource-footprint">System Resource Footprint</h2>
+            <p>
+                These are real-world numbers captured on Windows 11 Pro with TIIO running alongside the most common streaming and media apps. Your hardware may differ, but the spread remains consistent: offline playback consumes fewer resources than permanent streaming sessions.
+            </p>
+            <div class="compare-panel mt-8">
+                <table class="resource-table">
+                    <thead>
+                        <tr>
+                            <th>App / Tab</th>
+                            <th>RAM (typical)</th>
+                            <th>CPU while playing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="app-cell font-semibold">TIIO</td>
+                            <td>~150&nbsp;MB</td>
+                            <td>~0%–8%</td>
+                        </tr>
+                        <tr>
+                            <td class="app-cell">
+                                <img src="../../img/spotify.png" alt="Spotify Desktop" title="Spotify Desktop" class="app-badge">
+                            </td>
+                            <td>~200–400&nbsp;MB (often ≈300&nbsp;MB)</td>
+                            <td>Low single digits up to mid-teens (≈8–15%+)</td>
+                        </tr>
+                        <tr>
+                            <td class="app-cell">
+                                <img src="../../img/chrome.png" alt="YouTube 1080p (Chrome/Brave/Firefox)" title="YouTube 1080p (Chrome/Brave/Firefox)" class="app-badge">
+                            </td>
+                            <td>~500&nbsp;MB – 1.5+&nbsp;GB (≈1&nbsp;GB typical)</td>
+                            <td>~2%–15% with HW decode; higher without it</td>
+                        </tr>
+                        <tr>
+                            <td class="app-cell">
+                                <img src="../../img/netflix.png" alt="Netflix 1080p (Chrome/Edge)" title="Netflix 1080p (Chrome/Edge)" class="app-badge">
+                            </td>
+                            <td>~400&nbsp;MB – 1+&nbsp;GB</td>
+                            <td>Low single digits to mid-teens with HW decode</td>
+                        </tr>
+                        <tr>
+                            <td class="app-cell">
+                                <img src="../../img/hulu.png" alt="Hulu 1080p (browser)" title="Hulu 1080p (browser)" class="app-badge">
+                            </td>
+                            <td>~400&nbsp;MB – 1+&nbsp;GB</td>
+                            <td>Low single digits with HW decode; spikes on DRM issues</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-sm text-gray-400 mt-4">
+                Benchmarks were captured with TIIO running alongside the listed apps. Numbers vary per machine, but TIIO’s offline-first design keeps resource use tightly bounded because nothing streams or maintains live network sessions.
+            </p>
+
+            <h2 id="architecture-privacy">Architecture & Privacy Snapshot</h2>
+            <p>
+                Streaming stacks lean on remote services, while TIIO keeps everything local. The comparison below outlines how TIIO compares to Plex and Jellyfin the two most common self-hosted experiences across deployment, data flow, and user targeting.
+            </p>
+            <div class="compare-panel mt-8">
+                <table class="feature-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>TIIO</th>
+                            <th class="app-cell">
+                                <img src="../../img/plex.png" alt="Plex" title="Plex" class="app-badge">
+                            </th>
+                            <th class="app-cell">
+                                <img src="../../img/jelly.png" alt="Jellyfin" title="Jellyfin" class="app-badge">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Core Design</td>
+                            <td>Local-first desktop app for Windows 10/11. No servers, accounts, or cloud sync.</td>
+                            <td>Centralized server–client setup serving media locally or remotely.</td>
+                            <td>Open-source server–client system; self-hosted Plex alternative.</td>
+                        </tr>
+                        <tr>
+                            <td>Hosting Model</td>
+                            <td>Standalone app; media never leaves your device.</td>
+                            <td>Requires Plex Media Server on local/NAS/cloud hardware.</td>
+                            <td>Requires Jellyfin Server running on your network.</td>
+                        </tr>
+                        <tr>
+                            <td>Network Dependence</td>
+                            <td>Offline capable; fully functional without internet.</td>
+                            <td>Needs connectivity for streaming and metadata pulls.</td>
+                            <td>Offline locally, but metadata refresh and sync expect connectivity.</td>
+                        </tr>
+                        <tr>
+                            <td>Privacy / Data Flow</td>
+                            <td>No telemetry, accounts, or remote calls. Data never leaves the PC.</td>
+                            <td>Cloud-linked; sends usage and metadata to Plex services.</td>
+                            <td>Can be private, but still relies on server ↔ client traffic.</td>
+                        </tr>
+                        <tr>
+                            <td>Library Management</td>
+                            <td>Reads folders directly; instant indexing of media.</td>
+                            <td>Server scans and stores metadata in its database.</td>
+                            <td>Same pattern: server indexes, clients query.</td>
+                        </tr>
+                        <tr>
+                            <td>Storage / Access</td>
+                            <td>Files stay in place; optional local cache only.</td>
+                            <td>May transcode and cache on the server.</td>
+                            <td>Can transcode/cache on the server (optional).</td>
+                        </tr>
+                        <tr>
+                            <td>Playback Pipeline</td>
+                            <td>Local playback via HTML5/Howler.js with direct file streams.</td>
+                            <td>HTTP streaming and transcoding as needed.</td>
+                            <td>HTTP streaming with optional transcoding.</td>
+                        </tr>
+                        <tr>
+                            <td>User Experience</td>
+                            <td>Straightforward library view for music, video, podcasts, and audiobooks.</td>
+                            <td>Dashboard UI that varies per device.</td>
+                            <td>Functional OSS UI, less unified out of the box.</td>
+                        </tr>
+                        <tr>
+                            <td>Target User</td>
+                            <td>People who want offline control, privacy, and ownership.</td>
+                            <td>Users streaming libraries across many devices.</td>
+                            <td>Power users managing self-hosted services.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 id="faq">FAQ</h2>
+            <p>
+                Answers for anyone adopting TIIO. Need more detail? Reach out for custom builds, integration services, or enterprise licensing.
+            </p>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Does TIIO require an internet connection?</h3>
+                    <p>TIIO runs entirely offline. Interface assets and playback stacks are bundled locally, and the app never calls external APIs after installation.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Which operating systems are supported?</h3>
+                    <p>Windows builds are available now. Mac and Linux builds are in beta; join the waitlist to receive early access packages.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-2">How are add-on folders managed?</h3>
+                    <p>Point TIIO at any directory. It indexes metadata without altering files, and you can re-run scans or pause indexing at any time.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Can I customize the interface?</h3>
+                    <p>Not yet. Full theme customization is on the roadmap, but today every install ships with the same offline-safe palette.</p>
+                </div>
+            </div>
+            <p class="mt-8">
+                Want deeper numbers, custom builds, or an enterprise deployment review? Email us for a dedicated breakdown or a private TIIO build tailored to your environment.
+            </p>
+        </article>
+
+        <section class="mt-16 text-center space-y-6">
+            <h2 class="text-3xl font-semibold text-white">Download TIIO</h2>
+            <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                Ready to try TIIO? Download the current Windows build and see how it performs alongside your existing media apps.
+            </p>
+            <div>
+                <a href="https://github.com/nicholasxdavis/tiio-downloads/raw/main/download/beta/TIIO%20Setup.exe"
+                   class="download-button inline-flex"
+                   download>
+                    <span>Download for Windows</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="mt-20">
+            <h2 class="text-3xl font-semibold text-white mb-6">More about TIIO</h2>
+            <div class="grid gap-5 pb-4">
+                <article class="flex flex-col" data-category="product">
+                    <a href="../tiio/index.html" class="card card--text grid gap-4">
+                        <div>
+                            <p class="text-base font-medium text-white">Introducing TIIO beta</p>
+                            <p class="text-base text-gray-400 mt-2">An overview of TIIO’s offline-first media hub, covering the core feature set, playback stack, and why it stays fully functional without the internet.</p>
+                        </div>
+                        <div class="text-sm text-gray-500 uppercase tracking-wide flex items-center space-x-2">
+                            <span>Product</span>
+                            <span>•</span>
+                            <time datetime="2025-11-13">Nov 13, 2025</time>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </section>
+
+        <footer class="bg-black text-white -mx-4 mt-16">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-center">
+                    <a href="#" aria-label="Back to homepage">
+                        <img src="https://www.blacnova.net/img/bn.png" alt="Blacnova Icon" class="h-20 mx-auto">
+                    </a>
+                </div>
+                <p class="text-center text-white/70 mt-4">Founded in Las Cruces, New Mexico.</p>
+                <div class="border-t border-white/40 mt-12 pt-8 text-center text-white/60">
+                    <p>&copy; <span id="year">2025</span> Blacnova. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/shimmerjs@1.0.3/dist/shimmer.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('.header');
+            const headerContent = document.querySelector('.header-content');
+            const logo = document.querySelector('.logo');
+            const yearSpan = document.getElementById('year');
+
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            const handleScroll = () => {
+                if (header && headerContent && logo) {
+                    const isScrolled = window.scrollY > 50;
+                    header.classList.toggle('scrolled', isScrolled);
+                    headerContent.classList.toggle('h-16', isScrolled);
+                    headerContent.classList.toggle('h-24', !isScrolled);
+                    logo.classList.toggle('h-12', isScrolled);
+                    logo.classList.toggle('h-20', !isScrolled);
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+        });
+    </script>
+
+    <script src="../../js/PreviousPage.js"></script>
+    <script src="../../js/BN-Popup.js"></script>
+</body>
+</html>

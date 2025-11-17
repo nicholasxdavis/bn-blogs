@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Blacnova | Introducing Stellanova Vibe Tools</title>
+    <meta name="description" content="Introducing Stellanova Vibe Tools, the ultimate companion for developers and designers. A comprehensive Chrome extension for scraping, analyzing, and managing web assets.">
+    <link rel="icon" href="../../logo.png" type="image/png" />
+    <meta name="keywords" content="Blacnova, Stellanova Vibe Tools, developer tools, Chrome extension, web scraping, design analysis, digital agency, Las Cruces, web development">
+    <meta name="author" content="Blacnova Development">
+    <link rel="canonical" href="https://www.blacnova.net/blog/stellanova-vibe-tools/"> 
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.blacnova.net/blog/stellanova-vibe-tools/"> 
+    <meta property="og:title" content="Blacnova | Introducing Stellanova Vibe Tools">
+    <meta property="og:description" content="Introducing Stellanova Vibe Tools, the ultimate companion for developers and designers. A comprehensive Chrome extension for scraping, analyzing, and managing web assets.">
+    <meta property="og:image" content="https://www.blacnova.net/img/logo_white.png"> 
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://www.blacnova.net/blog/stellanova-vibe-tools/"> 
+    <meta name="twitter:title" content="Blacnova | Introducing Stellanova Vibe Tools">
+    <meta name="twitter:description" content="Introducing Stellanova Vibe Tools, the ultimate companion for developers and designers. A comprehensive Chrome extension for scraping, analyzing, and managing web assets.">
+    <meta name="twitter:image" content="https://www.blacnova.net/img/logo_white.png"> 
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+   
+
+    <!-- Fonts & Icons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+   
+
+    <!-- Component Libs -->
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+   
+
+    <!-- Alpine JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+
+
+    <!-- Tailwind Config -->
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    colors: {
+
+                        'bn-soft': '#FAF9EE',
+
+                        'bn-green': '#1A1A1a',
+
+                        'bn-white': '#EEEEEE',
+
+                        'bn-black': '#010101',
+
+                        'bn-dark': '#1A1A1A',
+
+                        forge: { // Added forge colors for the dropdown
+
+                            50: '#fff7ed',
+
+                            100: '#ffedd5',
+
+                            200: '#fed7aa',
+
+                            300: '#fdba74',
+
+                            400: '#fb923c',
+
+                            500: '#f97316',
+
+                            600: '#ea580c',
+
+                            700: '#c2410c',
+
+                            800: '#9a3412',
+
+                            900: '#7c2d12',
+
+                        },
+
+                    },
+
+                    fontFamily: {
+
+                        sans: ['Inter', 'sans-serif'],
+
+                        heading: ['inter', 'sans-serif'],
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+
+
+    <style>
+
+        /* Base styling */
+
+        body {
+
+            background-color: #000;
+
+            color: #f3f4f6; /* Lighter gray for better readability than pure white */
+
+            font-family: 'Inter', sans-serif;
+
+        }
+
+
+
+        /* Styling for the main article content */
+
+        .blog-content {
+
+            color: #d1d5db; /* Standard paragraph text */
+
+        }
+
+
+
+        /* Headings */
+
+        .blog-content h2 {
+
+            font-size: 1.875rem; /* 30px */
+
+            line-height: 2.25rem; /* 36px */
+
+            font-weight: 600; /* Changed from 700 (medium) to 600 (medium) */
+
+            color: #fff;
+
+            margin-top: 3rem;
+
+            margin-bottom: 1rem;
+
+            letter-spacing: -0.025em;
+
+        }
+
+
+
+        /* Paragraphs */
+
+        .blog-content p {
+
+            font-size: 1.125rem; /* 18px */
+
+            line-height: 1.75rem; /* 28px */
+
+            margin-bottom: 1.5rem;
+
+        }
+
+
+
+        /* Links */
+
+        .blog-content a {
+
+            color: #d4611c; /* Custom orange */
+
+            text-decoration: none;
+
+            font-weight: 500;
+
+        }
+
+        .blog-content a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+
+        /* Image styling */
+
+        .blog-content img {
+
+            border-radius: 0.75rem; /* 12px */
+
+
+
+
+            border: 1px solid #374151; /* gray-700 border */
+
+            box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.1), 0 4px 6px -2px rgba(249, 115, 22, 0.05);
+
+        }
+
+        /* Image hover overlay and preview */
+
+        .image-preview-container {
+
+            position: relative;
+
+            cursor: pointer;
+
+            display: inline-block;
+
+            width: 100%;
+
+        }
+
+        .image-preview-overlay {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            right: 0;
+
+            bottom: 0;
+
+            background-color: rgba(0, 0, 0, 0.6);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+
+            border-radius: 0.75rem;
+
+            z-index: 10;
+
+        }
+
+        .image-preview-container:hover .image-preview-overlay {
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+        .image-preview-icon {
+
+            color: white;
+
+            font-size: 2.5rem;
+
+            z-index: 11;
+
+        }
+
+        /* Image preview modal */
+
+        .image-modal-overlay {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            right: 0;
+
+            bottom: 0;
+
+            background-color: rgba(0, 0, 0, 0.9);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 9999;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+
+        }
+
+        .image-modal-overlay.show {
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+        .image-modal-content {
+
+            position: relative;
+
+            max-width: 90vw;
+
+            max-height: 90vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+        .image-modal-content img {
+
+            max-width: 100%;
+
+            max-height: 90vh;
+
+            object-fit: contain;
+
+            border-radius: 0.5rem;
+
+            border: none;
+
+            box-shadow: none;
+
+        }
+
+        .image-modal-close {
+
+            position: absolute;
+
+            top: -40px;
+
+            right: 0;
+
+            color: white;
+
+            font-size: 2rem;
+
+            cursor: pointer;
+
+            background: none;
+
+            border: none;
+
+            padding: 0.5rem;
+
+            line-height: 1;
+
+        }
+
+        .image-modal-close:hover {
+
+            opacity: 0.7;
+
+        }
+
+
+
+        /* Table of Contents */
+
+        .toc {
+
+            border: 1px solid #374151; /* gray-700 */
+
+            background-color: #000; /* Black background */
+
+            border-radius: 0.5rem;
+
+            padding: 0.75rem 1rem;
+
+            margin-top: 1.5rem;
+
+            margin-bottom: 1.5rem;
+
+        }
+
+        .toc h3 {
+
+            font-size: 0.875rem; /* 14px - smaller */
+
+            font-weight: 600;
+
+            color: #fff; /* White text */
+
+            margin-bottom: 0.5rem;
+
+        }
+
+        .toc ul {
+
+            list-style: none;
+
+            padding-left: 0;
+
+            margin: 0;
+
+        }
+
+        .toc li {
+
+            margin-bottom: 0.25rem;
+
+        }
+
+        .toc a {
+
+            color: #d4611c; /* Custom orange for better visibility on black */
+
+            font-weight: 500;
+
+            font-size: 0.875rem; /* 14px - smaller */
+
+            text-decoration: none;
+
+        }
+
+        .toc a:hover {
+
+            color: #e67e2d; /* Lighter shade of custom orange on hover */
+
+            text-decoration: underline;
+
+        }
+
+
+
+        /* Modal Styles */
+
+        .modal-overlay {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            right: 0;
+
+            bottom: 0;
+
+            background-color: rgba(0, 0, 0, 0.7);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 50;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+
+        }
+
+        .modal-overlay.show {
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+        .modal-panel {
+
+            background-color: #000; 
+
+outline: 2px solid rgba(255, 255, 255, 0.1);
+
+
+            color: #f3f4f6;
+
+            border-radius: 0.75rem;
+
+            padding: 2rem;
+
+            width: 100%;
+
+            max-width: 400px;
+
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+            transform: scale(0.95);
+
+            opacity: 0;
+
+            transition: transform 0.3s ease, opacity 0.3s ease;
+
+        }
+
+        .modal-overlay.show .modal-panel {
+
+            transform: scale(1);
+
+            opacity: 1;
+
+        }
+
+
+
+        /* Header/Footer Styles from styles.css */
+
+        html, body {
+
+            overflow-x: hidden;
+
+        }
+
+        .header {
+
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            backdrop-filter: blur(10px);
+
+            -webkit-backdrop-filter: blur(10px);
+
+            background-color: rgba(0, 0, 0, 0.85);
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        }
+
+        .header.scrolled {
+
+            background-color: rgba(0, 0, 0, 0.95);
+
+        }
+
+        .header-content, .logo {
+
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        }
+
+        .mobile-menu {
+
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            background-color: rgba(10, 10, 10, 0.98);
+
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+        }
+
+        .mobile-menu.open { transform: translateX(0); }
+
+        .mobile-menu.closed { transform: translateX(100%); }
+
+        .nav-link { position: relative; }
+
+        .nav-link:after {
+
+            content: '';
+
+            position: absolute;
+
+            width: 0;
+
+            height: 2px;
+
+            bottom: -4px;
+
+            left: 0;
+
+            background-color: white;
+
+            transition: width 0.3s ease;
+
+        }
+
+        .nav-link:hover:after { width: 100%; }
+
+        .btn-primary {
+
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+
+            color: #000;
+
+            font-weight: 500;
+
+        }
+
+        .btn-primary:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+
+        }
+
+        .mobile-dropdown-content {
+
+            max-height: 0;
+
+            overflow: hidden;
+
+            transition: max-height 0.3s ease-out;
+
+        }
+
+        .mobile-dropdown-content.open {
+
+            max-height: 500px;
+
+            transition: max-height 0.5s ease-in;
+
+        }
+
+        .rotate-0 {
+
+            transform: rotate(0deg);
+
+            transition: transform 0.3s ease;
+
+        }
+
+        .rotate-180 {
+
+            transform: rotate(180deg);
+
+            transition: transform 0.3s ease;
+
+        }
+
+    </style>
+
+</head>
+
+<body class="antialiased">
+
+
+
+    <!-- Header from Blacnova -->
+
+    <header class="header fixed top-0 left-0 w-full z-50">
+
+        <div class="container mx-auto px-4">
+
+            <div class="header-content flex justify-between items-center h-24">
+
+                <div class="flex items-center">
+
+                    <a href="../../index.html" class="flex items-center">
+
+                        <img src="https://www.blacnova.net/img/logo_white.png" alt="Stellanova Logo" class="logo h-20">
+
+                    </a>
+
+                </div>
+
+               
+
+                <nav class="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2">
+
+                    <div class="flex space-x-8">
+
+                        <!-- Navigation Links can be added here -->
+
+
+                    </div>
+
+                </nav>
+
+               
+
+
+
+               
+
+               
+
+            </div>
+
+        </div>
+
+    </header>
+
+   
+
+    
+
+   
+
+
+
+    <!-- Main Article Container -->
+
+    <main class="max-w-prose mx-auto px-4 py-16 lg:py-24 mt-24"> <!-- Added mt-24 for fixed header -->
+
+
+
+        <!-- Article Header -->
+
+        <header>
+
+            <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-white mb-4">
+
+                Introducing Stellanova Vibe Tools
+
+            </h1>
+
+            <p class="text-xl text-gray-400 mb-8">
+
+                Nov 5, 2025 by <span class="font-medium text-gray-200">Blacnova</span>
+
+            </p>
+
+        </header>
+
+ 
+
+        <!-- Article Content -->
+
+        <article class="blog-content">
+
+            <p>
+
+                Today, we’re releasing a major update that makes Stellanova Vibe Tools the ultimate companion for developers and designers.
+
+                This comprehensive Chrome extension is packed with a powerful suite of tools for scraping, analyzing, and managing web assets, fonts, colors, and more—all from a single, streamlined interface.
+
+            </p>
+
+
+
+            <!-- Main Feature Image Card -->
+
+            <div class="image-preview-container">
+
+                <img src="main-skin.png" alt="Main interface of Stellanova Vibe Tools"
+
+                     onerror="this.src='img/vite.png'; this.onerror=null;"
+
+                     class="preview-image">
+
+                <div class="image-preview-overlay">
+
+                    <i class="fas fa-eye image-preview-icon"></i>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Table of Contents -->
+
+            <nav class="toc">
+
+                <h3>Contents</h3>
+
+                <ul>
+
+                    <li><a href="#unified-toolset">A Unified Developer Toolset</a></li>
+
+                    <li><a href="#knowledge-bubbles">Knowledge Bubbles: Your Project's Memory</a></li>
+
+                    <li><a href="#reusable-prompts">Reusable Prompts for AI Workflows</a></li>
+
+                    <li><a href="#seamless-workflow">A Seamless Analysis Workflow</a></li>
+
+                    <li><a href="#get-started">Get Notified</a></li>
+
+                </ul>
+
+            </nav>
+
+
+
+           
+
+            <h2 id="unified-toolset">A Unified Developer Toolset</h2>
+
+            <p>
+
+                Vibe Tools consolidates 9 essential developer utilities into one dropdown menu. Instead of juggling multiple extensions, you now have a single, focused toolset.
+
+                This includes a Skin Scraper for saving pages as MHTML, an Asset Scraper to extract all images and scripts, and analyzers for CSS, SEO, and Tech Stacks.
+
+            </p>
+
+            <p>
+
+                We've also built-in interactive tools like FontGrab, ColorPick, and a Screen Ruler to make design analysis effortless.
+
+            </p>
+
+ 
+
+          <div class="grid grid-cols-2 gap-4 my-8 image-gallery-container">
+    <div class="image-preview-container">
+        <img src="dropdown.png" alt="Vibe Tools dropdown menu" class="mt-0 uniform-img preview-image"
+             onerror="this.src='img/tools.png'; this.onerror=null;">
+        <div class="image-preview-overlay">
+            <i class="fas fa-eye image-preview-icon"></i>
+        </div>
+    </div>
+    <div class="image-preview-container">
+        <img src="img/colorpickr.png" alt="ColorPick tool in action" class="mt-0 uniform-img preview-image"
+             onerror="this.src='https://placehold.co/400x300/000000/374151?text=ColorPick'; this.onerror=null;">
+        <div class="image-preview-overlay">
+            <i class="fas fa-eye image-preview-icon"></i>
+        </div>
+    </div>
+    <div class="image-preview-container">
+        <img src="img/scraped-assets.png" alt="Scraped assets tab" class="mt-0 uniform-img preview-image"
+             onerror="this.src='https://placehold.co/400x300/000000/374151?text=Scraped+Assets'; this.onerror=null;">
+        <div class="image-preview-overlay">
+            <i class="fas fa-eye image-preview-icon"></i>
+        </div>
+    </div>
+    <div class="image-preview-container">
+        <img src="img/scraped-stack.png" alt="Stack analyzer tab" class="mt-0 uniform-img preview-image"
+             onerror="this.src='https://placehold.co/400x300/000000/374151?text=Stack+Analyzer'; this.onerror=null;">
+        <div class="image-preview-overlay">
+            <i class="fas fa-eye image-preview-icon"></i>
+        </div>
+    </div>
+</div>
+
+<style>
+.uniform-img {
+    /* Ensures the image takes up 100% of the grid column's width */
+    width: 100%;
+    /* Set a fixed height for all images */
+    height: 250px; /* Adjust this value to your preferred height */
+    /* This tells the image how to fit into the specified dimensions */
+    /* 'cover' scales the image to cover the entire container */
+    object-fit: cover;
+    /* This specifies where to align the image if it's cropped. */
+    /* 'top' keeps the top of the image visible and cuts off the bottom. */
+    object-position: top;
+}
+</style>
+
+
+
+
+            <h2 id="knowledge-bubbles">Knowledge Bubbles: Your Project's Memory</h2>
+
+            <p>
+
+                Knowledge Bubbles are a powerful new feature for storing and organizing structured project information.
+
+                Save project names, descriptions, and asset URLs (including direct image/video uploads) in a format optimized for AI model consumption.
+
+            </p>
+
+            <p>
+
+                You can drag and drop saved bubbles into any input field or chat interface, providing comprehensive context to AI assistants in seconds. It's the perfect way to keep all your project details in one reusable place.
+
+            </p>
+
+
+
+            <div class="image-preview-container">
+
+                <img src="img/saved-bubble.png" alt="Knowledge Bubbles interface"
+
+                     onerror="this.src='https://placehold.co/800x600/000000/374151?text=Knowledge+Bubbles'; this.onerror=null;"
+
+                     class="preview-image">
+
+                <div class="image-preview-overlay">
+
+                    <i class="fas fa-eye image-preview-icon"></i>
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <h2 id="reusable-prompts">Reusable Prompts for AI Workflows</h2>
+
+            <p>
+
+                Alongside Knowledge Bubbles, we're introducing Prompts. This feature allows you to save, organize, and quickly access commonly used text templates for AI interactions.
+
+                We've included 6 built-in templates for common tasks like code review, debugging, and refactoring, and you can create and save your own.
+
+            </p>
+
+            <p>
+
+                Like Knowledge Bubbles, Prompts can be dragged directly into input fields, streamlining your entire AI-assisted development process.
+
+            </p>
+
+
+
+
+
+            <h2 id="seamless-workflow">A Seamless Analysis Workflow</h2>
+
+            <p>
+
+                The first thing you'll notice when you run the Skin Scraper is our new documentation generator.
+
+                It saves the current page not just as an MHTML file, but also generates a comprehensive UI Design Documentation in Markdown.
+
+                This file details the color palette, typography, layout, and components, giving you an instant, detailed overview of any site's design system.
+
+            </p>
+
+            <div class="image-preview-container">
+
+                <img src="img/md-file.png" alt="Generated Markdown Design Documentation"
+
+                     onerror="this.src='https://placehold.co/800x600/000000/374151?text=MD+Design+Doc'; this.onerror=null;"
+
+                     class="preview-image">
+
+                <div class="image-preview-overlay">
+
+                    <i class="fas fa-eye image-preview-icon"></i>
+
+                </div>
+
+            </div>
+
+
+
+        </article>
+
+
+
+        <!-- Floating CTA Card -->
+
+        <section id="get-started" class="bg-black rounded-xl p-8 sm:p-12 my-16 text-center">
+
+            <h2 class="text-3xl font-medium text-white mb-4">
+
+                Get Notified
+
+            </h2>
+
+            <p class="text-lg text-gray-300 max-w-lg mx-auto mb-8">
+
+                Stellanova Vibe Tools is coming soon. Sign up to get notified when it's available and be the first to streamline your development workflow.
+
+            </p>
+
+            <button id="notifyButton" class="inline-block bg-gradient-to-r from-[#d4611c] to-[#c55a19] text-white font-medium text-lg py-3 px-8 rounded-full shadow-lg hover:from-[#c55a19] hover:to-[#b55316] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#d4611c] focus:ring-offset-2 focus:ring-offset-black">
+
+                Get Notified
+
+            </button>
+
+        </section>
+
+
+
+
+
+        <!-- Replaced Footer -->
+
+        <footer class="bg-black text-white -mx-4"> <!-- Use negative margin to break out of prose container -->
+
+            <div class="container mx-auto px-4">
+
+                <div class="flex justify-center">
+
+                    <a href="#" aria-label="Back to homepage">
+
+                        <img src="https://www.blacnova.net/img/bn.png" alt="Stellanova Icon" class="h-20 mx-auto">
+
+                    </a>
+
+                </div>
+
+                <p class="text-center text-white/70 mt-4">Founded in Las Cruces, New Mexico.</p>
+
+                <div class="border-t border-white/40 mt-12 pt-8 text-center text-white/60">
+
+                    <p>&copy; <span id="year">2025</span> Blacnova. All rights reserved.</p>
+
+                </div>
+
+            </div>
+
+        </footer>
+
+ 
+
+    </main>
+
+
+
+   <!-- Modal HTML Structure -->
+<div id="notifyModal" class="modal-overlay">
+  <div class="modal-panel">
+    <!-- Close Button -->
+    <div class="text-right">
+      <button id="closeModal" class="text-gray-400 hover:text-white transition-colors">&times;</button>
+    </div>
+
+    <div id="modalContent">
+      <h3 class="text-2xl font-medium text-white text-center mb-4">Be the first to know</h3>
+      <p class="text-gray-300 text-center mb-6">
+        Enter your email to get notified when Stellanova Vibe Tools is released.
+      </p>
+
+      <!-- ✅ CONNECTED TO FORMSPREE -->
+      <form id="notifyForm" action="https://formspree.io/f/mdkpqpao" method="POST">
+        <div class="mb-4">
+          <label for="email" class="sr-only">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+            class="w-full px-4 py-3 bg-[#1a1a1a] border border-white/15 text-white rounded-lg 
+                   focus:outline-none focus:ring-1 focus:ring-[#e2742f] focus:ring-offset-0 focus:border-[#e2742f]"
+          >
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-[#d4611c] to-[#c55a19] text-white font-medium py-3 px-6 rounded-full shadow-lg 
+                 hover:from-[#c55a19] hover:to-[#b55316] transition-all duration-300 
+                 focus:outline-none focus:ring-1 focus:ring-[#e2742f] focus:ring-offset-2 focus:ring-offset-[#1a1a1a]"
+        >
+          Notify Me
+        </button>
+      </form>
+    </div>
+
+    <!-- Success Message -->
+    <div id="modalSuccess" class="hidden text-center">
+      <svg class="w-16 h-16 mx-auto text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <h3 class="text-2xl font-medium text-white mt-4 mb-2">You will be notified!</h3>
+      <p class="text-gray-300">We'll let you know the moment it's available.</p>
+      <button id="closeSuccessModal"
+              class="mt-6 w-full bg-white text-[#000] font-medium py-2 px-6 rounded-lg hover:bg-gray-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Script to handle submission and success swap -->
+<script>
+  const form = document.getElementById('notifyForm');
+  const modalContent = document.getElementById('modalContent');
+  const modalSuccess = document.getElementById('modalSuccess');
+  const closeSuccessModal = document.getElementById('closeSuccessModal');
+  const closeModal = document.getElementById('closeModal');
+  const notifyModal = document.getElementById('notifyModal');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const res = await fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: { Accept: 'application/json' }
+    });
+
+    if (res.ok) {
+      form.reset();
+      modalContent.classList.add('hidden');
+      modalSuccess.classList.remove('hidden');
+    } else {
+      alert('Something went wrong. Please try again later.');
+    }
+  });
+
+  closeSuccessModal.addEventListener('click', () => {
+    notifyModal.classList.add('hidden');
+    modalContent.classList.remove('hidden');
+    modalSuccess.classList.add('hidden');
+  });
+
+  closeModal.addEventListener('click', () => {
+    notifyModal.classList.add('hidden');
+  });
+</script>
+
+
+
+
+    <!-- Image Preview Modal -->
+
+    <div id="imageModal" class="image-modal-overlay">
+
+        <div class="image-modal-content">
+
+            <button class="image-modal-close" id="closeImageModal">&times;</button>
+
+            <img id="modalImage" src="" alt="Preview">
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Other Scripts -->
+
+    <!-- **** START FIX **** -->
+
+    <!-- Added jQuery before tilt.js -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- **** END FIX **** -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/shimmerjs@1.0.3/dist/shimmer.min.js"></script>
+
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        // Modal Script
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const notifyButton = document.getElementById('notifyButton');
+
+            const modal = document.getElementById('notifyModal');
+
+            const closeModal = document.getElementById('closeModal');
+
+            const closeSuccessModal = document.getElementById('closeSuccessModal');
+
+            const notifyForm = document.getElementById('notifyForm');
+
+            const modalContent = document.getElementById('modalContent');
+
+            const modalSuccess = document.getElementById('modalSuccess');
+
+
+
+            const showModal = () => {
+
+                modalContent.classList.remove('hidden');
+
+                modalSuccess.classList.add('hidden');
+
+                notifyForm.reset();
+
+                modal.classList.add('show');
+
+            };
+
+
+
+            const hideModal = () => {
+
+                modal.classList.remove('show');
+
+            };
+
+
+
+            if(notifyButton) notifyButton.addEventListener('click', showModal);
+
+            if(closeModal) closeModal.addEventListener('click', hideModal);
+
+            if(closeSuccessModal) closeSuccessModal.addEventListener('click', hideModal);
+
+           
+
+            if(modal) modal.addEventListener('click', (e) => {
+
+                if (e.target === modal) {
+
+                    hideModal();
+
+                }
+
+            });
+
+
+
+            if(notifyForm) notifyForm.addEventListener('submit', (e) => {
+
+                e.preventDefault();
+
+                const email = e.target.email.value;
+
+                console.log('Email submitted:', email);
+
+               
+
+                modalContent.classList.add('hidden');
+
+                modalSuccess.classList.remove('hidden');
+
+            });
+
+
+
+            document.addEventListener('keydown', (e) => {
+
+                if (e.key === 'Escape' && modal.classList.contains('show')) {
+
+                    hideModal();
+
+                }
+
+            });
+
+        });
+
+
+
+        // Image Preview Script
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const imageModal = document.getElementById('imageModal');
+
+            const modalImage = document.getElementById('modalImage');
+
+            const closeImageModal = document.getElementById('closeImageModal');
+
+            const previewContainers = document.querySelectorAll('.image-preview-container');
+
+
+
+            const openImageModal = (imageSrc) => {
+
+                modalImage.src = imageSrc;
+
+                imageModal.classList.add('show');
+
+                document.body.style.overflow = 'hidden';
+
+            };
+
+
+
+            const closeImageModalFunc = () => {
+
+                imageModal.classList.remove('show');
+
+                document.body.style.overflow = '';
+
+            };
+
+
+
+            previewContainers.forEach(container => {
+
+                container.addEventListener('click', (e) => {
+
+                    const img = container.querySelector('.preview-image');
+
+                    if (img) {
+
+                        openImageModal(img.src);
+
+                    }
+
+                });
+
+            });
+
+
+
+            if (closeImageModal) {
+
+                closeImageModal.addEventListener('click', closeImageModalFunc);
+
+            }
+
+
+
+            if (imageModal) {
+
+                imageModal.addEventListener('click', (e) => {
+
+                    if (e.target === imageModal) {
+
+                        closeImageModalFunc();
+
+                    }
+
+                });
+
+            }
+
+
+
+            document.addEventListener('keydown', (e) => {
+
+                if (e.key === 'Escape' && imageModal.classList.contains('show')) {
+
+                    closeImageModalFunc();
+
+                }
+
+            });
+
+        });
+
+
+
+        // Header/Footer Script (from ui.js and inline)
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const canvas = document.getElementById('cta-particles');
+
+            if (canvas) {
+
+                // ... (particle logic from ui.js - omitted for brevity but would be here)
+
+            }
+
+
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+            const closeMenuButton = document.getElementById('close-menu-button');
+
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            const menuOverlay = document.getElementById('menu-overlay');
+
+            const header = document.querySelector('.header');
+
+            const headerContent = document.querySelector('.header-content');
+
+            const logo = document.querySelector('.logo');
+
+            const yearSpan = document.getElementById('year');
+
+
+
+            if (yearSpan) {
+
+                yearSpan.textContent = new Date().getFullYear();
+
+            }
+
+
+
+            // Mobile dropdown functionality
+
+            const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+
+            mobileDropdownBtns.forEach(btn => {
+
+                btn.addEventListener('click', function() {
+
+                    const dropdownContent = this.nextElementSibling;
+
+                    const arrow = this.querySelector('svg');
+
+                   
+
+                    dropdownContent.classList.toggle('open');
+
+                    arrow.classList.toggle('rotate-0');
+
+                    arrow.classList.toggle('rotate-180');
+
+                   
+
+                    document.querySelectorAll('.mobile-dropdown-content').forEach(content => {
+
+                        if (content !== dropdownContent && content.classList.contains('open')) {
+
+                            content.classList.remove('open');
+
+                            content.previousElementSibling.querySelector('svg').classList.add('rotate-0');
+
+                            content.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
+
+                        }
+
+                    });
+
+                });
+
+            });
+
+
+
+            const openMenu = () => {
+
+                if(mobileMenu) mobileMenu.classList.replace('closed', 'open');
+
+                if(menuOverlay) menuOverlay.classList.remove('hidden');
+
+                document.body.style.overflow = 'hidden';
+
+            };
+
+
+
+            const closeMenu = () => {
+
+                if(mobileMenu) mobileMenu.classList.replace('open', 'closed');
+
+                if(menuOverlay) menuOverlay.classList.add('hidden');
+
+                document.body.style.overflow = '';
+
+               
+
+                document.querySelectorAll('.mobile-dropdown-content').forEach(content => {
+
+                    content.classList.remove('open');
+
+                });
+
+                document.querySelectorAll('.mobile-dropdown-btn svg').forEach(arrow => {
+
+                    arrow.classList.add('rotate-0');
+
+                    arrow.classList.remove('rotate-180');
+
+                });
+
+            };
+
+
+
+            if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMenu);
+
+            if (closeMenuButton) closeMenuButton.addEventListener('click', closeMenu);
+
+            if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+
+
+
+            if (mobileMenu) {
+
+                mobileMenu.querySelectorAll('a').forEach(link => {
+
+                    link.addEventListener('click', closeMenu);
+
+                });
+
+            }
+
+
+
+            const handleScroll = () => {
+
+                if (header && headerContent && logo) {
+
+                    const isScrolled = window.scrollY > 50;
+
+                    header.classList.toggle('scrolled', isScrolled);
+
+                    headerContent.classList.toggle('h-16', isScrolled);
+
+                    headerContent.classList.toggle('h-24', !isScrolled);
+
+                    logo.classList.toggle('h-12', isScrolled);
+
+                    logo.classList.toggle('h-20', !isScrolled);
+
+                }
+
+            };
+
+
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+
+            handleScroll();
+
+
+
+            // Animation script
+
+            const elementsToAnimate = document.querySelectorAll('.scroll-animate');
+
+            if ("IntersectionObserver" in window) {
+
+                elementsToAnimate.forEach(el => { el.style.opacity = '0'; });
+
+                const observer = new IntersectionObserver((entries, observer) => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+
+                            const el = entry.target;
+
+                            const animation = el.getAttribute('data-animation') || 'animate__fadeInUp';
+
+                            const delay = el.getAttribute('data-delay');
+
+                            if (delay) { el.style.animationDelay = delay; }
+
+                            el.style.opacity = '1';
+
+                            el.classList.add('animate__animated', animation);
+
+                            observer.unobserve(el);
+
+                        }
+
+                    });
+
+                }, { threshold: 0.05 });
+
+                elementsToAnimate.forEach(el => { observer.observe(el); });
+
+            } else {
+
+                elementsToAnimate.forEach(el => { el.style.opacity = '1'; });
+
+            }
+
+        });
+
+    </script>
+
+
+<script src="../../js/PreviousPage.js"></script>
+<script src="../../js/BN-Popup.js"></script>
+</body>
+
+</html>
