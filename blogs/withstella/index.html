@@ -1,807 +1,919 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Blacnova | Introducing Withstella</title>
-    <meta name="description" content="Withstella isn’t just another cloud service. It’s a collaborative cloud platform built specifically for teams, designers, and businesses to streamline teamwork and asset management.">
-    <link rel="icon" href="../../logo.png" type="image/png" />
-    <meta name="keywords" content="Blacnova, Withstella, asset management, brand governance, digital asset management, cloud storage, design teams, digital agency, Las Cruces">
-    <meta name="author" content="Blacnova Development">
-    <link rel="canonical" href="https://www.blacnova.net/blog/withstella/"> 
-
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.blacnova.net/blog/withstella/"> 
-    <meta property="og:title" content="Blacnova | Introducing Withstella">
-    <meta property="og:description" content="Withstella isn’t just another cloud service. It’s a collaborative cloud platform built specifically for teams, designers, and businesses to streamline teamwork and asset management.">
-    <meta property="og:image" content="https://www.blacnova.net/img/logo_white.png"> 
-
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:url" content="https://www.blacnova.net/blog/withstella/"> 
-    <meta name="twitter:title" content="Blacnova | Introducing Withstella">
-    <meta name="twitter:description" content="Withstella isn’t just another cloud service. It’s a collaborative cloud platform built specifically for teams, designers, and businesses to streamline teamwork and asset management.">
-    <meta name="twitter:image" content="https://www.blacnova.net/img/logo_white.png"> 
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'bn-soft': '#FAF9EE',
-                        'bn-green': '#1A1A1a',
-                        'bn-white': '#EEEEEE',
-                        'bn-black': '#010101',
-                        'bn-dark': '#1A1A1A',
-                        forge: { // Added forge colors for the dropdown
-                            50: '#fff7ed',
-                            100: '#ffedd5',
-                            200: '#fed7aa',
-                            300: '#fdba74',
-                            400: '#fb923c',
-                            500: '#f97316',
-                            600: '#ea580c',
-                            700: '#c2410c',
-                            800: '#9a3412',
-                            900: '#7c2d12',
-                        },
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        /* Base styling */
-        body {
-            background-color: #000;
-            color: #f3f4f6; /* Lighter gray for better readability than pure white */
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Styling for the main article content */
-        .blog-content {
-            color: #d1d5db; /* Standard paragraph text */
-        }
-
-        /* Headings */
-        .blog-content h2 {
-            font-size: 1.875rem; /* 30px */
-            line-height: 2.25rem; /* 36px */
-            font-weight: 600; /* Changed from 700 (medium) to 600 (medium) */
-            color: #fff;
-            margin-top: 3rem;
-            margin-bottom: 1rem;
-            letter-spacing: -0.025em;
-        }
-
-        /* Paragraphs */
-        .blog-content p {
-            font-size: 1.125rem; /* 18px */
-            line-height: 1.75rem; /* 28px */
-            margin-bottom: 1.5rem;
-        }
-
-        /* Links */
-        .blog-content a {
-            color: #d4611c; /* Custom orange */
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .blog-content a:hover {
-            text-decoration: underline;
-        }
-
-        /* Image styling */
-        .blog-content img {
-            border-radius: 0.75rem; /* 12px */
-            border: 1px solid #374151; /* gray-700 border */
-            box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.1), 0 4px 6px -2px rgba(249, 115, 22, 0.05);
-            margin-top: 1.5rem; /* Added margin-top to separate images from text */
-            margin-bottom: 1.5rem; /* Added margin-bottom */
-        }
-        /* Image hover overlay and preview */
-        .image-preview-container {
-            position: relative;
-            cursor: pointer;
-            display: inline-block;
-            width: 100%;
-            margin-top: 1.5rem; /* Added margin-top */
-            margin-bottom: 1.5rem; /* Added margin-bottom */
-        }
-        .image-preview-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            border-radius: 0.75rem;
-            z-index: 10;
-        }
-        .image-preview-container:hover .image-preview-overlay {
-            opacity: 1;
-            visibility: visible;
-        }
-        .image-preview-icon {
-            color: white;
-            font-size: 2.5rem;
-            z-index: 11;
-        }
-        /* Image preview modal */
-        .image-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .image-modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .image-modal-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .image-modal-content img {
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 0.5rem;
-            border: none;
-            box-shadow: none;
-            margin: 0; /* Reset margins for modal image */
-        }
-        .image-modal-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 0.5rem;
-            line-height: 1;
-        }
-        .image-modal-close:hover {
-            opacity: 0.7;
-        }
-
-        /* Table of Contents */
-        .toc {
-            border: 1px solid #374151; /* gray-700 */
-            background-color: #000; /* Black background */
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .toc h3 {
-            font-size: 0.875rem; /* 14px - smaller */
-            font-weight: 600;
-            color: #fff; /* White text */
-            margin-bottom: 0.5rem;
-        }
-        .toc ul {
-            list-style: none;
-            padding-left: 0;
-            margin: 0;
-        }
-        .toc li {
-            margin-bottom: 0.25rem;
-        }
-        .toc a {
-            color: #d4611c; /* Custom orange for better visibility on black */
-            font-weight: 500;
-            font-size: 0.875rem; /* 14px - smaller */
-            text-decoration: none;
-        }
-        .toc a:hover {
-            color: #e67e2d; /* Lighter shade of custom orange on hover */
-            text-decoration: underline;
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 50;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-panel {
-            background-color: #000; 
-            outline: 2px solid rgba(255, 255, 255, 0.1);
-            color: #f3f4f6;
-            border-radius: 0.75rem;
-            padding: 2rem;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            transform: scale(0.95);
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        .modal-overlay.show .modal-panel {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        /* Header/Footer Styles from styles.css */
-        html, body {
-            overflow-x: hidden;
-        }
-        .header {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            background-color: rgba(0, 0, 0, 0.85);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .header.scrolled {
-            background-color: rgba(0, 0, 0, 0.95);
-        }
-        .header-content, .logo {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .mobile-menu {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background-color: rgba(10, 10, 10, 0.98);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .mobile-menu.open { transform: translateX(0); }
-        .mobile-menu.closed { transform: translateX(100%); }
-        .nav-link { position: relative; }
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: white;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover:after { width: 100%; }
-        .btn-primary {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-            color: #000;
-            font-weight: 500;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-        }
-        .mobile-dropdown-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .mobile-dropdown-content.open {
-            max-height: 500px;
-            transition: max-height 0.5s ease-in;
-        }
-        .rotate-0 {
-            transform: rotate(0deg);
-            transition: transform 0.3s ease;
-        }
-        .rotate-180 {
-            transform: rotate(180deg);
-            transition: transform 0.3s ease;
-        }
-    </style>
-</head>
-<body class="antialiased">
-
-    <header class="header fixed top-0 left-0 w-full z-50">
-        <div class="container mx-auto px-4">
+   <head>
+          
+      <meta charset="UTF-8">
+          
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          
+          
+      <title>Blacnova | Introducing Withstella</title>
+          
+      <meta name="description" content="Withstella isn’t just another cloud service. It’s a collaborative cloud platform built specifically for teams, designers, and businesses to streamline teamwork and asset management.">
+          
+      <link rel="icon" href="../../logo.png" type="image/png" />
+          
+      <meta name="keywords" content="Blacnova, Withstella, asset management, brand governance, digital asset management, cloud storage, design teams, digital agency, Las Cruces">
+          
+      <meta name="author" content="Blacnova Development">
+          
+      <link rel="canonical" href="https://www.blacnova.net/blog/withstella/">
+       
+          
+      <meta property="og:type" content="article">
+          
+      <meta property="og:url" content="https://www.blacnova.net/blog/withstella/">
+       
+          
+      <meta property="og:title" content="Blacnova | Introducing Withstella">
+          
+      <meta property="og:description" content="Withstella isn’t just another cloud service. It’s a collaborative cloud platform built specifically for teams, designers, and businesses to streamline teamwork and asset management.">
+          
+      <meta property="og:image" content="https://www.blacnova.net/img/logo_white.png">
+       
+          
+      <meta name="twitter:card" content="summary">
+          
+      <meta name="twitter:url" content="https://www.blacnova.net/blog/withstella/">
+       
+          
+      <meta name="twitter:title" content="Blacnova | Introducing Withstella">
+          
+      <meta name="twitter:description" content="Withstella isn’t just another cloud service. It’s a collaborative cloud platform built specifically for teams, designers, and businesses to streamline teamwork and asset management.">
+          
+      <meta name="twitter:image" content="https://www.blacnova.net/img/logo_white.png">
+       
+          
+          <script src="https://cdn.tailwindcss.com"></script>
+          
+          
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+          
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+          
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+          
+      <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+          
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+          
+          
+      <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.css" rel="stylesheet" type="text/css" />
+          
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+          
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+          
+          <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+          <script>
+                 tailwind.config = {
+                     theme: {
+                         extend: {
+                             colors: {
+                                 'bn-soft': '#FAF9EE',
+                                 'bn-green': '#1A1A1a',
+                                 'bn-white': '#EEEEEE',
+                                 'bn-black': '#010101',
+                                 'bn-dark': '#1A1A1A',
+                                 forge: { // Added forge colors for the dropdown
+                                     50: '#fff7ed',
+                                     100: '#ffedd5',
+                                     200: '#fed7aa',
+                                     300: '#fdba74',
+                                     400: '#fb923c',
+                                     500: '#f97316',
+                                     600: '#ea580c',
+                                     700: '#c2410c',
+                                     800: '#9a3412',
+                                     900: '#7c2d12',
+                                 },
+                             },
+                             fontFamily: {
+                                 sans: ['Inter', 'sans-serif'],
+                                 heading: ['inter', 'sans-serif'],
+                             }
+                         }
+                     }
+                 }
+             
+      </script>
+          
+      <style>
+                 /* Base styling */
+                 body {
+                     background-color: #000;
+                     color: #f3f4f6; /* Lighter gray for better readability than pure white */
+                     font-family: 'Inter', sans-serif;
+                 }
+                 /* Styling for the main article content */
+                 .blog-content {
+                     color: #d1d5db; /* Standard paragraph text */
+                 }
+                 /* Headings */
+                 .blog-content h2 {
+                     font-size: 1.875rem; /* 30px */
+                     line-height: 2.25rem; /* 36px */
+                     font-weight: 600; /* Changed from 700 (medium) to 600 (medium) */
+                     color: #fff;
+                     margin-top: 3rem;
+                     margin-bottom: 1rem;
+                     letter-spacing: -0.025em;
+                 }
+                 /* Paragraphs */
+                 .blog-content p {
+                     font-size: 1.125rem; /* 18px */
+                     line-height: 1.75rem; /* 28px */
+                     margin-bottom: 1.5rem;
+                 }
+                 /* Links */
+                 .blog-content a {
+                     color: #9c7ead; /* Custom purple */
+                     text-decoration: none;
+                     font-weight: 500;
+                 }
+                 .blog-content a:hover {
+                     text-decoration: underline;
+                 }
+                 /* Image styling */
+                 .blog-content img {
+                     border-radius: 0.75rem; /* 12px */
+                     border: 1px solid #374151; /* gray-700 border */
+                     box-shadow: 0 10px 15px -3px rgba(156, 126, 173, 0.1), 0 4px 6px -2px rgba(156, 126, 173, 0.05);
+                     margin-top: 1.5rem; /* Added margin-top to separate images from text */
+                     margin-bottom: 1.5rem; /* Added margin-bottom */
+                 }
+                 /* Image hover overlay and preview */
+                 .image-preview-container {
+                     position: relative;
+                     cursor: pointer;
+                     display: inline-block;
+                     width: 100%;
+                     margin-top: 1.5rem; /* Added margin-top */
+                     margin-bottom: 1.5rem; /* Added margin-bottom */
+                 }
+                 .image-preview-overlay {
+                     position: absolute;
+                     top: 0;
+                     left: 0;
+                     right: 0;
+                     bottom: 0;
+                     background-color: rgba(0, 0, 0, 0.6);
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     opacity: 0;
+                     visibility: hidden;
+                     transition: opacity 0.3s ease, visibility 0.3s ease;
+                     border-radius: 0.75rem;
+                     z-index: 10;
+                 }
+                 .image-preview-container:hover .image-preview-overlay {
+                     opacity: 1;
+                     visibility: visible;
+                 }
+                 .image-preview-icon {
+                     color: white;
+                     font-size: 2.5rem;
+                     z-index: 11;
+                 }
+                 /* Image preview modal */
+                 .image-modal-overlay {
+                     position: fixed;
+                     top: 0;
+                     left: 0;
+                     right: 0;
+                     bottom: 0;
+                     background-color: rgba(0, 0, 0, 0.9);
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     z-index: 9999;
+                     opacity: 0;
+                     visibility: hidden;
+                     transition: opacity 0.3s ease, visibility 0.3s ease;
+                 }
+                 .image-modal-overlay.show {
+                     opacity: 1;
+                     visibility: visible;
+                 }
+                 .image-modal-content {
+                     position: relative;
+                     max-width: 90vw;
+                     max-height: 90vh;
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                 }
+                 .image-modal-content img {
+                     max-width: 100%;
+                     max-height: 90vh;
+                     object-fit: contain;
+                     border-radius: 0.5rem;
+                     border: none;
+                     box-shadow: none;
+                     margin: 0; /* Reset margins for modal image */
+                 }
+                 .image-modal-close {
+                     position: absolute;
+                     top: -40px;
+                     right: 0;
+                     color: white;
+                     font-size: 2rem;
+                     cursor: pointer;
+                     background: none;
+                     border: none;
+                     padding: 0.5rem;
+                     line-height: 1;
+                 }
+                 .image-modal-close:hover {
+                     opacity: 0.7;
+                 }
+                 /* Table of Contents */
+                 .toc {
+                     border: 1px solid #374151; /* gray-700 */
+                     background-color: #000; /* Black background */
+                     border-radius: 0.5rem;
+                     padding: 0.75rem 1rem;
+                     margin-top: 1.5rem;
+                     margin-bottom: 1.5rem;
+                 }
+                 .toc h3 {
+                     font-size: 0.875rem; /* 14px - smaller */
+                     font-weight: 600;
+                     color: #fff; /* White text */
+                     margin-bottom: 0.5rem;
+                 }
+                 .toc ul {
+                     list-style: none;
+                     padding-left: 0;
+                     margin: 0;
+                 }
+                 .toc li {
+                     margin-bottom: 0.25rem;
+                 }
+                 .toc a {
+                     color: #9c7ead; /* Custom purple for better visibility on black */
+                     font-weight: 500;
+                     font-size: 0.875rem; /* 14px - smaller */
+                     text-decoration: none;
+                 }
+                 .toc a:hover {
+                     color: #9c7ead; /* Lighter shade of custom purple on hover */
+                     text-decoration: underline;
+                 }
+                 /* Modal Styles */
+                 .modal-overlay {
+                     position: fixed;
+                     top: 0;
+                     left: 0;
+                     right: 0;
+                     bottom: 0;
+                     background-color: rgba(0, 0, 0, 0.7);
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     z-index: 50;
+                     opacity: 0;
+                     visibility: hidden;
+                     transition: opacity 0.3s ease, visibility 0.3s ease;
+         D     }
+                 .modal-overlay.show {
+                     opacity: 1;
+                     visibility: visible;
+                 }
+                 .modal-panel {
+                     background-color: #000; 
+                     outline: 2px solid rgba(255, 255, 255, 0.1);
+                     color: #f3f4f6;
+                     border-radius: 0.75rem;
+                     padding: 2rem;
+                     width: 100%;
+                     max-width: 400px;
+                     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                     transform: scale(0.95);
+                     opacity: 0;
+                     transition: transform 0.3s ease, opacity 0.3s ease;
+                 }
+                 .modal-overlay.show .modal-panel {
+                     transform: scale(1);
+                     opacity: 1;
+                 }
+                 /* Header/Footer Styles from styles.css */
+                 html, body {
+                     overflow-x: hidden;
+                 }
+                 .header {
+                     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                     backdrop-filter: blur(10px);
+                     -webkit-backdrop-filter: blur(10px);
+                     background-color: rgba(0, 0, 0, 0.85);
+                     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                 }
+                 .header.scrolled {
+                     background-color: rgba(0, 0, 0, 0.95);
+                 }
+                 .header-content, .logo {
+                     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                 }
+                 .mobile-menu {
+                     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                     background-color: rgba(10, 10, 10, 0.98);
+                     border-left: 1px solid rgba(255, 255, 255, 0.1);
+                 }
+                 .mobile-menu.open { transform: translateX(0); }
+                 .mobile-menu.closed { transform: translateX(100%); }
+                 .nav-link { position: relative; }
+                 .nav-link:after {
+                     content: '';
+                     position: absolute;
+                     width: 0;
+                     height: 2px;
+                     bottom: -4px;
+                     left: 0;
+                     background-color: white;
+                     transition: width 0.3s ease;
+                 }
+                 .nav-link:hover:after { width: 100%; }
+                 .btn-primary {
+                     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                     background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+                     color: #000;
+                     font-weight: 500;
+                 }
+                 .btn-primary:hover {
+                     transform: translateY(-2px);
+                     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+                 }
+                 .mobile-dropdown-content {
+                     max-height: 0;
+                     overflow: hidden;
+                     transition: max-height 0.3s ease-out;
+                 }
+                 .mobile-dropdown-content.open {
+                     max-height: 500px;
+                     transition: max-height 0.5s ease-in;
+                 }
+                 .rotate-0 {
+                     transform: rotate(0deg);
+                     transition: transform 0.3s ease;
+                 }
+                 .rotate-180 {
+                     transform: rotate(180deg);
+                     transition: transform 0.3s ease;
+                 }
+             
+      </style>
+   </head>
+   <body class="antialiased">
+          
+      <header class="header fixed top-0 left-0 w-full z-50">
+                 
+         <div class="container mx-auto px-4">
+                        
             <div class="header-content flex justify-between items-center h-24">
-                <div class="flex items-center">
-                    <a href="../../index.html" class="flex items-center">
-                        <img src="https://www.blacnova.net/img/logo_white.png" alt="Stellanova Logo" class="logo h-20">
-                    </a>
-                </div>
-                
-                <nav class="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2">
-                    <div class="flex space-x-8">
-                        </div>
-                </nav>
-                
-                
-                
+                               
+               <div class="flex items-center">
+                                      <a href="../../index.html" class="flex items-center">
+                                          <img src="https://www.blacnova.net/img/logo_white.png" alt="Stellanova Logo" class="logo h-20">
+                                      </a>
+                                  
+               </div>
+                               
+                               
+               <nav class="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2">
+                                      
+                  <div class="flex space-x-8">
+                                             
+                  </div>
+                                  
+               </nav>
+                               
+                               
+                               
+                           
             </div>
-        </div>
-    </header>
-    
-    
-    
-    <main class="max-w-prose mx-auto px-4 py-16 lg:py-24 mt-24"> <header>
+                    
+         </div>
+             
+      </header>
+          
+          
+          
+          
+      <main class="max-w-prose mx-auto px-4 py-16 lg:py-24 mt-24">
+         <header>
+                        
             <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-white mb-4">
-                Introducing Withstella
+                               Introducing Withstella
+                           
             </h1>
+                        
             <p class="text-xl text-gray-400 mb-8">
-                Nov 6, 2025 by <span class="font-medium text-gray-200">Blacnova</span>
+                               Nov 6, 2025 by <span class="font-medium text-gray-200">Blacnova</span>
+                           
             </p>
-        </header>
- 
-        <article class="blog-content">
-            
+                    
+         </header>
+          
+                 
+         <article class="blog-content">
+                        
+                        
             <p>
-                Withstella isn’t just another cloud service like Dropbox, Google Drive, or iCloud. It’s built specifically for teams, designers, and businesses. Stella is a collaborative cloud platform designed to streamline teamwork and asset management.
+                               Withstella isn’t just another cloud service like Dropbox, Google Drive, or iCloud. It’s built specifically for teams, designers, and businesses. Stella is a collaborative cloud platform designed to streamline teamwork and asset management.
+                           
             </p>
+                        
             <p>
-                With Stella, you can create fully customizable, manageable, and shareable Kits. Think of Kits as advanced shared folders—perfect for organizing projects that involve multiple designers, editors, or writers. Each Kit serves as a central hub for all files and assets related to a specific project, business, or brand.
+                               With Stella, you can create fully customizable, manageable, and shareable Kits. Think of Kits as advanced shared folders—perfect for organizing projects that involve multiple designers, editors, or writers. Each Kit serves as a central hub for all files and assets related to a specific project, business, or brand.
+                           
             </p>
+                        
             <p>
-                Stella is built to adapt to a wide range of workflows, making it a versatile solution for any operation.
+                               Stella is built to adapt to a wide range of workflows, making it a versatile solution for any operation.
+                           
             </p>
-
+                        
             <nav class="toc">
-                <h3>Contents</h3>
-                <ul>
-                    <li><a href="#central-hub">A Central Hub for Your Brand</a></li>
-                    <li><a href="#single-source">The Single Source of Truth for Assets</a></li>
-                    <li><a href="#collaboration">Collaboration Built for Teams</a></li>
-                    <li><a href="#brand-insights">Actionable Brand Insights</a></li>
-                    <li><a href="#get-started">Get Started Today</a></li>
-                </ul>
+                               
+               <h3>Contents</h3>
+                               
+               <ul>
+                                      
+                  <li><a href="#central-hub">A Central Hub for Your Brand</a></li>
+                                      
+                  <li><a href="#single-source">The Single Source of Truth for Assets</a></li>
+                                      
+                  <li><a href="#collaboration">Collaboration Built for Teams</a></li>
+                                      
+                  <li><a href="#brand-insights">Actionable Brand Insights</a></li>
+                                   
+                  <li><a href="#get-started">Get Started Today</a></li>
+                                  
+               </ul>
+                           
             </nav>
-
-            
+                        
+                        
             <h2 id="central-hub">A Central Hub for Your Brand</h2>
+                        
             <p>
-                Withstella consolidates your entire brand identity into one place with Stella Kits. Instead of juggling style guides in PDFs and logos in scattered folders, you get a centralized, manageable hub for all essential assets. This includes complete logo management, color palette definitions, typography guidelines, and version control for all brand assets, ensuring your team always has the correct version.
+                               Withstella consolidates your entire brand identity into one place with Stella Kits. Instead of juggling style guides in PDFs and logos in scattered folders, you get a centralized, manageable hub for all essential assets. This includes complete logo management, color palette definitions, typography guidelines, and version control for all brand assets, ensuring your team always has the correct version.
+                           
             </p>
-            
+                        
+                        
             <div class="image-preview-container">
-                <img src="https://placehold.co/800x600/000000/374151?text=Brand+Kit+Hub" alt="Brand Kit Hub Interface"
-                     onerror="this.src='https://placehold.co/800x600/000000/374151?text=Image+Missing'; this.onerror=null;"
-                     class="preview-image">
-                <div class="image-preview-overlay">
-                    <i class="fas fa-eye image-preview-icon"></i>
-                </div>
+                               <img src="img/hub.png" alt="Brand Kit Hub Interface"
+                                    onerror="this.src='https://placehold.co/800x600/000000/374151?text=Image+Missing'; this.onerror=null;"
+                                    class="preview-image">
+                               
+               <div class="image-preview-overlay">
+                                      <i class="fas fa-eye image-preview-icon"></i>
+                                  
+               </div>
+                           
             </div>
-
+                        
             <h2 id="single-source">The Single Source of Truth for Assets</h2>
+                        
             <p>
-                The Asset Hub is your project's single source of truth. Think of it as a powerful, intelligent library for all your brand assets—not just file storage. We've built-in real-time version control, smart tagging, and granular access permissions. You can effortlessly organize, search, and distribute images, documents, fonts, and video, all from one secure, centralized library.
+                               The Asset Hub is your project's single source of truth. Think of it as a powerful, intelligent library for all your brand assets—not just file storage. We've built-in real-time version control, smart tagging, and granular access permissions. You can effortlessly organize, search, and distribute images, documents, fonts, and video, all from one secure, centralized library.
+                           
             </p>
-            
+                        
+                        
             <div class="image-preview-container">
-                <img src="https://placehold.co/800x600/000000/374151?text=Asset+Hub+Library" alt="Asset Hub Library"
-                     onerror="this.src='https://placehold.co/800x600/000000/374151?text=Image+Missing'; this.onerror=null;"
-                     class="preview-image">
-                <div class="image-preview-overlay">
-                    <i class="fas fa-eye image-preview-icon"></i>
-                </div>
+                               <img src="img/assets.png" alt="Asset Hub Library"
+                                    onerror="this.src='https://placehold.co/800x600/000000/374151?text=Image+Missing'; this.onerror=null;"
+                                    class="preview-image">
+                               
+               <div class="image-preview-overlay">
+                                      <i class="fas fa-eye image-preview-icon"></i>
+                                  
+               </div>
+                           
             </div>
-
+                        
             <h2 id="collaboration">Collaboration Built for Teams</h2>
+                        
             <p>
-                Alongside the Asset Hub, we're introducing Team Spaces. This feature allows you to collaborate securely with dedicated workspaces for your team. You can set granular, role-based permissions (Owner, Admin, Editor, Viewer) to control exactly who can view, edit, and approve brand assets. It's the perfect way to manage approval workflows and keep all your project stakeholders in sync.
+                               Alongside the Asset Hub, we're introducing Team Spaces. This feature allows you to collaborate securely with dedicated workspaces for your team. You can set granular, role-based permissions (Owner, Admin, Editor, Viewer) to control exactly who can view, edit, and approve brand assets. It's the perfect way to manage approval workflows and keep all your project stakeholders in sync.
+                           
             </p>
-            
+                        
+                        
             <div class="image-preview-container">
-                <img src="https://placehold.co/800x600/000000/374151?text=Team+Spaces+Permissions" alt="Team Spaces and Permissions"
-                     onerror="this.src='https://placehold.co/800x600/000000/374151?text=Image+Missing'; this.onerror=null;"
-                     class="preview-image">
-                <div class="image-preview-overlay">
-                    <i class="fas fa-eye image-preview-icon"></i>
-                </div>
+                               <img src="img/team.png" alt="Team Spaces and Permissions"
+                                    onerror="this.src='https://placehold.co/800x600/000000/374151?text=Image+Missing'; this.onerror=null;"
+                                    class="preview-image">
+                               
+               <div class="image-preview-overlay">
+                                      <i class="fas fa-eye image-preview-icon"></i>
+                                  
+               </div>
+                           
             </div>
-
+                        
             <h2 id="brand-insights">Actionable Brand Insights</h2>
+                        
             <p>
-                The first thing you'll notice when you use Withstella is the clarity it provides. Our Analytics Dashboard gives you an instant, detailed overview of your brand's performance. It tracks asset downloads, content usage, and team activity, providing valuable insights into how, where, and by whom your brand assets are being used.
+                               The first thing you'll notice when you use Withstella is the clarity it provides. Our Analytics Dashboard gives you an instant, detailed overview of your brand's performance. It tracks asset downloads, content usage, and team activity, providing valuable insights into how, where, and by whom your brand assets are being used.
+                           
             </p>
-            
+                        
+                        
             <div class="image-preview-container">
-                <img src="https://placehold.co/800x600/000000/374151?text=Analytics+Dashboard" alt="Analytics Dashboard"
-                     onerror="this.src='https://placehold.co/800x600/000000/374151?text=Image+Missing'; this.onerror=null;"
-                     class="preview-image">
-                <div class="image-preview-overlay">
-                    <i class="fas fa-eye image-preview-icon"></i>
-                </div>
+                               <img src="img/stats.png" alt="Analytics Dashboard"
+                                    onerror="this.src='https://placehold.co/800x600/000000/374151?text=Image+Missing'; this.onerror=null;"
+                                    class="preview-image">
+                               
+               <div class="image-preview-overlay">
+                                      <i class="fas fa-eye image-preview-icon"></i>
+                               
+               </div>
+                           
             </div>
-
-        </article>
-
-        <section id="get-started" class="bg-black rounded-xl p-8 sm:p-12 my-16 text-center">
+                    
+         </article>
+                 
+         <section id="get-started" class="bg-black rounded-xl p-8 sm:p-12 my-16 text-center">
+                        
             <h2 class="text-3xl font-medium text-white mb-4">
-                Get Started Today
+                               Get Started Today
+                           
             </h2>
+                        
             <p class="text-lg text-gray-300 max-w-lg mx-auto mb-8">
-                Withstella is available today. We offer a plan for everyone, from a Free Trial for individual creators to Pro and Enterprise plans for growing teams and large organizations. Sign up to start for free and take control of your brand.
+                               Withstella is available today. We offer a plan for everyone, from a Free Trial for individual creators to Pro and Enterprise plans for growing teams and large organizations. Sign up to start for free and take control of your brand.
+                           
             </p>
-            <a href="#" class="inline-block bg-gradient-to-r from-[#d4611c] to-[#c55a19] text-white font-medium text-lg py-3 px-8 rounded-full shadow-lg hover:from-[#c55a19] hover:to-[#b55316] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#d4611c] focus:ring-offset-2 focus:ring-offset-black">
-                Get Started for Free
-            </a>
-        </section>
-
-
-        <footer class="bg-black text-white -mx-4"> <div class="container mx-auto px-4">
-                <div class="flex justify-center">
-                    <a href="#" aria-label="Back to homepage">
-                        <img src="https://www.blacnova.net/img/bn.png" alt="Stellanova Icon" class="h-20 mx-auto">
-                    </a>
-                </div>
-                <p class="text-center text-white/70 mt-4">Founded in Las Cruces, New Mexico.</p>
-                <div class="border-t border-white/40 mt-12 pt-8 text-center text-white/60">
-                    <p>&copy; <span id="year">2025</span> Blacnova. All rights reserved.</p>
-                </div>
+                        <a href="#" class="inline-block bg-gradient-to-r from-[#9c7ead] to-[#9c7ead] text-white font-medium text-lg py-3 px-8 rounded-full shadow-lg hover:from-[#9c7ead] hover:to-[#9c7ead] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#9c7ead] focus:ring-offset-2 focus:ring-offset-black">
+                            Get Started for Free
+                        </a>
+                    
+         </section>
+                 
+         <footer class="bg-black text-white -mx-4">
+            <div class="container mx-auto px-4">
+                               
+               <div class="flex justify-center">
+                                      <a href="#" aria-label="Back to homepage">
+                                          <img src="https://www.blacnova.net/img/bn.png" alt="Stellanova Icon" class="h-20 mx-auto">
+                                      </a>
+                                 
+               </div>
+                               
+               <p class="text-center text-white/70 mt-4">Founded in Las Cruces, New Mexico.</p>
+                               
+               <div class="border-t border-white/40 mt-12 pt-8 text-center text-white/60">
+                                      
+                  <p>&copy; <span id="year">2025</span> Blacnova. All rights reserved.</p>
+                                  
+               </div>
+                           
             </div>
-        </footer>
- 
-    </main>
-
-    <div id="notifyModal" class="modal-overlay">
-      <div class="modal-panel">
-        <div class="text-right">
-          <button id="closeModal" class="text-gray-400 hover:text-white transition-colors">&times;</button>
-        </div>
-
-        <div id="modalContent">
-          <h3 class="text-2xl font-medium text-white text-center mb-4">Be the first to know</h3>
-          <p class="text-gray-300 text-center mb-6">
-            Enter your email to get notified when Stellanova Vibe Tools is released.
-          </p>
-
-          <form id="notifyForm" action="https://formspree.io/f/mdkpqpao" method="POST">
-            <div class="mb-4">
-              <label for="email" class="sr-only">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="you@example.com"
-                required
-                class="w-full px-4 py-3 bg-[#1a1a1a] border border-white/15 text-white rounded-lg 
-                       focus:outline-none focus:ring-1 focus:ring-[#e2742f] focus:ring-offset-0 focus:border-[#e2742f]"
-              >
+                    
+         </footer>
+          
+             
+      </main>
+          
+      <div id="notifyModal" class="modal-overlay">
+               
+         <div class="modal-panel">
+                    
+            <div class="text-right">
+                         <button id="closeModal" class="text-gray-400 hover:text-white transition-colors">&times;</button>
+                       
             </div>
-
-            <button
-              type="submit"
-              class="w-full bg-gradient-to-r from-[#d4611c] to-[#c55a19] text-white font-medium py-3 px-6 rounded-full shadow-lg 
-                     hover:from-[#c55a19] hover:to-[#b55316] transition-all duration-300 
-                     focus:outline-none focus:ring-1 focus:ring-[#e2742f] focus:ring-offset-2 focus:ring-offset-[#1a1a1a]"
-            >
-              Notify Me
-            </button>
-          </form>
-        </div>
-
-        <div id="modalSuccess" class="hidden text-center">
-          <svg class="w-16 h-16 mx-auto text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <h3 class="text-2xl font-medium text-white mt-4 mb-2">You will be notified!</h3>
-          <p class="text-gray-300">We'll let you know the moment it's available.</p>
-          <button id="closeSuccessModal"
-                  class="mt-6 w-full bg-white text-[#000] font-medium py-2 px-6 rounded-lg hover:bg-gray-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
-            Close
-          </button>
-        </div>
+                    
+            <div id="modalContent">
+                         
+               <h3 class="text-2xl font-medium text-white text-center mb-4">Be the first to know</h3>
+                         
+               <p class="text-gray-300 text-center mb-6">
+                              Enter your email to get notified when Stellanova Vibe Tools is released.
+                            
+               </p>
+                         
+               <form id="notifyForm" action="https://formspree.io/f/mdkpqpao" method="POST">
+                              
+                  <div class="mb-4">
+                                   <label for="email" class="sr-only">Email</label>
+                                   <input
+                           D           type="email"
+                                     id="email"
+                                     name="email"
+                                     placeholder="you@example.com"
+                                     required
+                                     class="w-full px-4 py-3 bg-[#1a1a1a] border border-white/15 text-white rounded-lg 
+                                            focus:outline-none focus:ring-1 focus:ring-[#9c7ead] focus:ring-offset-0 focus:border-[#9c7ead]"
+                                   >
+                                 
+                  </div>
+                              <button
+                                type="submit"
+                                class="w-full bg-gradient-to-r from-[#9c7ead] to-[#9c7ead] text-white font-medium py-3 px-6 rounded-full shadow-lg 
+                                       hover:from-[#9c7ead] hover:to-[#9c7ead] transition-all duration-300 
+                                       focus:outline-none focus:ring-1 focus:ring-[#9c7ead] focus:ring-offset-2 focus:ring-offset-[#1a1a1a]"
+                              >
+                                Notify Me
+                              </button>
+                            
+               </form>
+                       
+            </div>
+                    
+            <div id="modalSuccess" class="hidden text-center">
+                         
+               <svg class="w-16 h-16 mx-auto text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            
+               </svg>
+                         
+               <h3 class="text-2xl font-medium text-white mt-4 mb-2">You will be notified!</h3>
+                         
+               <p class="text-gray-300">We'll let you know the moment it's available.</p>
+                         <button id="closeSuccessModal"
+                                 class="mt-6 w-full bg-white text-[#000] font-medium py-2 px-6 rounded-lg hover:bg-gray-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                           Close
+                         </button>
+                       
+            </div>
+                  
+         </div>
+             
       </div>
-    </div>
-
-    <script>
-      const form = document.getElementById('notifyForm');
-      const modalContent = document.getElementById('modalContent');
-      const modalSuccess = document.getElementById('modalSuccess');
-      const closeSuccessModal = document.getElementById('closeSuccessModal');
-      const closeModal = document.getElementById('closeModal');
-      const notifyModal = document.getElementById('notifyModal');
-
-      if(form) {
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const formData = new FormData(form);
-
-          const res = await fetch(form.action, {
-            method: form.method,
-            body: formData,
-            headers: { Accept: 'application/json' }
-          });
-
-          if (res.ok) {
-            form.reset();
-            modalContent.classList.add('hidden');
-            modalSuccess.classList.remove('hidden');
-          } else {
-            alert('Something went wrong. Please try again later.');
-          }
-        });
-      }
-
-      if(closeSuccessModal) {
-        closeSuccessModal.addEventListener('click', () => {
-          notifyModal.classList.remove('show'); // Changed from .add('hidden')
-          // Reset modal for next time
-          setTimeout(() => {
-             modalContent.classList.remove('hidden');
-             modalSuccess.classList.add('hidden');
-          }, 300); // Hide after transition
-        });
-      }
-      
-      if(closeModal) {
-        closeModal.addEventListener('click', () => {
-          notifyModal.classList.remove('show'); // Changed from .add('hidden')
-        });
-      }
-    </script>
-
-
-    <div id="imageModal" class="image-modal-overlay">
-        <div class="image-modal-content">
-            <button class="image-modal-close" id="closeImageModal">&times;</button>
-            <img id="modalImage" src="" alt="Preview">
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/shimmerjs@1.0.3/dist/shimmer.min.js"></script>
-
-    <script>
-        // Modal Script
-        document.addEventListener('DOMContentLoaded', () => {
-            const notifyButton = document.getElementById('notifyButton'); // This will be null now, which is fine.
-            const modal = document.getElementById('notifyModal');
-            const closeModal = document.getElementById('closeModal');
-            const closeSuccessModal = document.getElementById('closeSuccessModal');
-            const notifyForm = document.getElementById('notifyForm');
-            const modalContent = document.getElementById('modalContent');
-            const modalSuccess = document.getElementById('modalSuccess');
-
-            const showModal = () => {
-                if(!modal) return;
-                modalContent.classList.remove('hidden');
-                modalSuccess.classList.add('hidden');
-                notifyForm.reset();
-                modal.classList.add('show');
-            };
-
-            const hideModal = () => {
-                if(!modal) return;
-                modal.classList.remove('show');
-            };
-
-            if(notifyButton) notifyButton.addEventListener('click', showModal); // This script remains, but won't fire
-            if(closeModal) closeModal.addEventListener('click', hideModal);
-            // if(closeSuccessModal) closeSuccessModal.addEventListener('click', hideModal); // Handled by separate script now
-            
-            if(modal) modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    hideModal();
-                }
-            });
-
-            // Removed old form submit logic, as it's handled by the new Formspree script
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && modal && modal.classList.contains('show')) {
-                    hideModal();
-                }
-            });
-        });
-
-        // ADDED: Image Preview Script
-        document.addEventListener('DOMContentLoaded', () => {
-            const imageModal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            const closeImageModalBtn = document.getElementById('closeImageModal'); 
-            const previewContainers = document.querySelectorAll('.image-preview-container');
-
-            const openImageModal = (imageSrc) => {
-                if(!imageModal || !modalImage) return;
-                modalImage.src = imageSrc;
-                imageModal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            };
-
-            const closeImageModalFunc = () => {
-                if(!imageModal) return;
-                imageModal.classList.remove('show');
-                document.body.style.overflow = '';
-            };
-
-            previewContainers.forEach(container => {
-                container.addEventListener('click', (e) => {
-                    const img = container.querySelector('.preview-image');
-                    if (img) {
-                        openImageModal(img.src);
-                    }
-                });
-            });
-
-            if (closeImageModalBtn) {
-                closeImageModalBtn.addEventListener('click', closeImageModalFunc);
-            }
-
-            if (imageModal) {
-                imageModal.addEventListener('click', (e) => {
-                    if (e.target === imageModal) {
-                        closeImageModalFunc();
-                    }
-                });
-            }
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && imageModal && imageModal.classList.contains('show')) {
-                    closeImageModalFunc();
-                }
-            });
-        });
-
-        // Header/Footer Script (from ui.js and inline)
-        document.addEventListener('DOMContentLoaded', function () {
-            const canvas = document.getElementById('cta-particles');
-            if (canvas) {
-                // ... (particle logic from ui.js - omitted for brevity but would be here)
-            }
-
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const closeMenuButton = document.getElementById('close-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuOverlay = document.getElementById('menu-overlay');
-            const header = document.querySelector('.header');
-            const headerContent = document.querySelector('.header-content');
-            const logo = document.querySelector('.logo');
-            const yearSpan = document.getElementById('year');
-
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
-            }
-
-            // Mobile dropdown functionality
-            const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
-            mobileDropdownBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const dropdownContent = this.nextElementSibling;
-                    const arrow = this.querySelector('svg');
+          <script>
+               const form = document.getElementById('notifyForm');
+               const modalContent = document.getElementById('modalContent');
+               const modalSuccess = document.getElementById('modalSuccess');
+               const closeSuccessModal = document.getElementById('closeSuccessModal');
+               const closeModal = document.getElementById('closeModal');
+               const notifyModal = document.getElementById('notifyModal');
+         
+               if(form) {
+                 form.addEventListener('submit', async (e) => {
+                   e.preventDefault();
+                   const formData = new FormData(form);
+         
+                   const res = await fetch(form.action, {
+                     method: form.method,
+                     body: formData,
+                     headers: { Accept: 'application/json' }
+                   });
+         
+                   if (res.ok) {
+                     form.reset();
+                     modalContent.classList.add('hidden');
+                     modalSuccess.classList.remove('hidden');
+                   } else {
+                     alert('Something went wrong. Please try again later.');
+         D         }
+                 });
+               }
+         
+               if(closeSuccessModal) {
+                 closeSuccessModal.addEventListener('click', () => {
+                   notifyModal.classList.remove('show'); // Changed from .add('hidden')
+                   // Reset modal for next time
+                   setTimeout(() => {
+                      modalContent.classList.remove('hidden');
+                      modalSuccess.classList.add('hidden');
+                   }, 300); // Hide after transition
+                 });
+               }
+               
+               if(closeModal) {
+                 closeModal.addEventListener('click', () => {
+                   notifyModal.classList.remove('show'); // Changed from .add('hidden')
+                 });
+               }
+             
+      </script>
+          
+      <div id="imageModal" class="image-modal-overlay">
+                 
+         <div class="image-modal-content">
+                        <button class="image-modal-close" id="closeImageModal">&times;</button>
+                        <img id="modalImage" src="" alt="Preview">
                     
-                    dropdownContent.classList.toggle('open');
-                    arrow.classList.toggle('rotate-0');
-                    arrow.classList.toggle('rotate-180');
-                    
-                    document.querySelectorAll('.mobile-dropdown-content').forEach(content => {
-                        if (content !== dropdownContent && content.classList.contains('open')) {
-                            content.classList.remove('open');
-                            content.previousElementSibling.querySelector('svg').classList.add('rotate-0');
-                            content.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
-                        }
-                    });
-                });
-            });
-
-            const openMenu = () => {
-                if(mobileMenu) mobileMenu.classList.replace('closed', 'open');
-                if(menuOverlay) menuOverlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            };
-
-            const closeMenu = () => {
-                if(mobileMenu) mobileMenu.classList.replace('open', 'closed');
-                if(menuOverlay) menuOverlay.classList.add('hidden');
-                document.body.style.overflow = '';
-                
-                document.querySelectorAll('.mobile-dropdown-content').forEach(content => {
-                    content.classList.remove('open');
-                });
-                document.querySelectorAll('.mobile-dropdown-btn svg').forEach(arrow => {
-                    arrow.classList.add('rotate-0');
-                    arrow.classList.remove('rotate-180');
-                });
-            };
-
-            if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMenu);
-            if (closeMenuButton) closeMenuButton.addEventListener('click', closeMenu);
-            if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
-
-            if (mobileMenu) {
-                mobileMenu.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', closeMenu);
-                });
-            }
-
-            const handleScroll = () => {
-                if (header && headerContent && logo) {
-                    const isScrolled = window.scrollY > 50;
-                    header.classList.toggle('scrolled', isScrolled);
-                    headerContent.classList.toggle('h-16', isScrolled);
-                    headerContent.classList.toggle('h-24', !isScrolled);
-                    logo.classList.toggle('h-12', isScrolled);
-                    logo.classList.toggle('h-20', !isScrolled);
-                }
-            };
-
-            window.addEventListener('scroll', handleScroll, { passive: true });
-            handleScroll();
-
-            // Animation script
-            const elementsToAnimate = document.querySelectorAll('.scroll-animate');
-            if ("IntersectionObserver" in window) {
-                elementsToAnimate.forEach(el => { el.style.opacity = '0'; });
-                const observer = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const el = entry.target;
-                            const animation = el.getAttribute('data-animation') || 'animate__fadeInUp';
-                            const delay = el.getAttribute('data-delay');
-                            if (delay) { el.style.animationDelay = delay; }
-                            el.style.opacity = '1';
-                            el.classList.add('animate__animated', animation);
-                            observer.unobserve(el);
-                        }
-                    });
-                }, { threshold: 0.05 });
-                elementsToAnimate.forEach(el => { observer.observe(el); });
-            } else {
-                elementsToAnimate.forEach(el => { el.style.opacity = '1'; });
-            }
-        });
-    </script>
-<script src="../../js/PreviousPage.js"></script>
-<script src="../../js/BN-Popup.js"></script>
-</body>
+         </div>
+             
+      </div>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/shimmerjs@1.0.3/dist/shimmer.min.js"></script>
+          <script>
+                 // Modal Script
+                 document.addEventListener('DOMContentLoaded', () => {
+                     const notifyButton = document.getElementById('notifyButton'); // This will be null now, which is fine.
+                     const modal = document.getElementById('notifyModal');
+                     const closeModal = document.getElementById('closeModal');
+                     const closeSuccessModal = document.getElementById('closeSuccessModal');
+           D         const notifyForm = document.getElementById('notifyForm');
+                     const modalContent = document.getElementById('modalContent');
+                     const modalSuccess = document.getElementById('modalSuccess');
+         
+                     const showModal = () => {
+                         if(!modal) return;
+                         modalContent.classList.remove('hidden');
+                         modalSuccess.classList.add('hidden');
+                         notifyForm.reset();
+                         modal.classList.add('show');
+                     };
+         
+                     const hideModal = () => {
+                         if(!modal) return;
+                         modal.classList.remove('show');
+                     };
+         
+                     if(notifyButton) notifyButton.addEventListener('click', showModal); // This script remains, but won't fire
+                     if(closeModal) closeModal.addEventListener('click', hideModal);
+                     // if(closeSuccessModal) closeSuccessModal.addEventListener('click', hideModal); // Handled by separate script now
+                     
+                     if(modal) modal.addEventListener('click', (e) => {
+                         if (e.target === modal) {
+                       T       hideModal();
+                         }
+                     });
+         
+                     // Removed old form submit logic, as it's handled by the new Formspree script
+         
+                     document.addEventListener('keydown', (e) => {
+                         if (e.key === 'Escape' && modal && modal.classList.contains('show')) {
+                             hideModal();
+                         }
+                     });
+                 });
+         
+                 // ADDED: Image Preview Script
+                 document.addEventListener('DOMContentLoaded', () => {
+                     const imageModal = document.getElementById('imageModal');
+                     const modalImage = document.getElementById('modalImage');
+                     const closeImageModalBtn = document.getElementById('closeImageModal'); 
+                     const previewContainers = document.querySelectorAll('.image-preview-container');
+         
+                     const openImageModal = (imageSrc) => {
+                         if(!imageModal || !modalImage) return;
+                         modalImage.src = imageSrc;
+                         imageModal.classList.add('show');
+                         document.body.style.overflow = 'hidden';
+                     };
+         
+                     const closeImageModalFunc = () => {
+         SESSION           if(!imageModal) return;
+                         imageModal.classList.remove('show');
+                         document.body.style.overflow = '';
+                     };
+         
+                     previewContainers.forEach(container => {
+                         container.addEventListener('click', (e) => {
+                             const img = container.querySelector('.preview-image');
+         Details               if (img) {
+                                 openImageModal(img.src);
+                             }
+                         });
+           Note:       });
+         
+                     if (closeImageModalBtn) {
+                         closeImageModalBtn.addEventListener('click', closeImageModalFunc);
+                     }
+         
+                     if (imageModal) {
+                         imageModal.addEventListener('click', (e) => {
+         Note:                 if (e.target === imageModal) {
+                                 closeImageModalFunc();
+                             }
+                         });
+                     }
+         
+                     document.addEventListener('keydown', (e) => {
+                         if (e.key === 'Escape' && imageModal && imageModal.classList.contains('show')) {
+                             closeImageModalFunc();
+                         }
+                     });
+                 });
+         
+                 // Header/Footer Script (from ui.js and inline)
+                 document.addEventListener('DOMContentLoaded', function () {
+                     const canvas = document.getElementById('cta-particles');
+                     if (canvas) {
+                         // ... (particle logic from ui.js - omitted for brevity but would be here)
+                     }
+         
+                     const mobileMenuButton = document.getElementById('mobile-menu-button');
+                     const closeMenuButton = document.getElementById('close-menu-button');
+                     const mobileMenu = document.getElementById('mobile-menu');
+                     const menuOverlay = document.getElementById('menu-overlay');
+                     const header = document.querySelector('.header');
+                     const headerContent = document.querySelector('.header-content');
+                     const logo = document.querySelector('.logo');
+                     const yearSpan = document.getElementById('year');
+         
+         Read         if (yearSpan) {
+                         yearSpan.textContent = new Date().getFullYear();
+                     }
+         
+                     // Mobile dropdown functionality
+                     const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+                     mobileDropdownBtns.forEach(btn => {
+                         btn.addEventListener('click', function() {
+           Notice:               const dropdownContent = this.nextElementSibling;
+                             const arrow = this.querySelector('svg');
+                             
+                             dropdownContent.classList.toggle('open');
+                             arrow.classList.toggle('rotate-0');
+                             arrow.classList.toggle('rotate-180');
+         D                   
+                   _D           document.querySelectorAll('.mobile-dropdown-content').forEach(content => {
+                                 if (content !== dropdownContent && content.classList.contains('open')) {
+                                     content.classList.remove('open');
+                                     content.previousElementSibling.querySelector('svg').classList.add('rotate-0');
+                                     content.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
+         Note:                 }
+                             });
+                         });
+                     });
+         
+                     const openMenu = () => {
+         D             if(mobileMenu) mobileMenu.classList.replace('closed', 'open');
+                         if(menuOverlay) menuOverlay.classList.remove('hidden');
+                         document.body.style.overflow = 'hidden';
+                     };
+         
+                     const closeMenu = () => {
+                         if(mobileMenu) mobileMenu.classList.replace('open', 'closed');
+                     D   if(menuOverlay) menuOverlay.classList.add('hidden');
+                         document.body.style.overflow = '';
+                         
+                         document.querySelectorAll('.mobile-dropdown-content').forEach(content => {
+         Security               content.classList.remove('open');
+                         });
+                         document.querySelectorAll('.mobile-dropdown-btn svg').forEach(arrow => {
+                             arrow.classList.add('rotate-0');
+                             arrow.classList.remove('rotate-180');
+                         });
+                     };
+         
+                     if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMenu);
+                     if (closeMenuButton) closeMenuButton.addEventListener('click', closeMenu);
+                     if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+         
+                     if (mobileMenu) {
+                         mobileMenu.querySelectorAll('a').forEach(link => {
+         Setting               link.addEventListener('click', closeMenu);
+                         });
+                     }
+         
+                     const handleScroll = () => {
+                         if (header && headerContent && logo) {
+                             const isScrolled = window.scrollY > 50;
+         New                 header.classList.toggle('scrolled', isScrolled);
+                             headerContent.classList.toggle('h-16', isScrolled);
+                             headerContent.classList.toggle('h-24', !isScrolled);
+                 Setting         logo.classList.toggle('h-12', isScrolled);
+                             logo.classList.toggle('h-20', !isScrolled);
+         This             }
+                     };
+         
+                     window.addEventListener('scroll', handleScroll, { passive: true });
+                     handleScroll();
+         
+                     // Animation script
+                     const elementsToAnimate = document.querySelectorAll('.scroll-animate');
+                     if ("IntersectionObserver" in window) {
+                         elementsToAnimate.forEach(el => { el.style.opacity = '0'; });
+         Note:             const observer = new IntersectionObserver((entries, observer) => {
+                             entries.forEach(entry => {
+         Data                   if (entry.isIntersecting) {
+                                     const el = entry.target;
+         Note:                       const animation = el.getAttribute('data-animation') || 'animate__fadeInUp';
+                                     const delay = el.getAttribute('data-delay');
+                                     if (delay) { el.style.animationDelay = delay; }
+                                     el.style.opacity = '1';
+                                     el.classList.add('animate__animated', animation);
+                                     observer.unobserve(el);
+                                 }
+                             });
+                         }, { threshold: 0.05 });
+               Services       elementsToAnimate.forEach(el => { observer.observe(el); });
+         Next         } else {
+                         elementsToAnimate.forEach(el => { el.style.opacity = '1'; });
+                     }
+                 });
+             
+      </script>
+      <script src="../../js/PreviousPage.js"></script>
+      <script src="../../js/BN-Popup.js"></script>
+   </body>
 </html>
