@@ -5,6 +5,7 @@
 ## Primary pages
 
 - [Blog home](https://blog.blacnova.net/): Index of all posts
+- [Blacnova Client Dashboard](https://blog.blacnova.net/blogs/blacnova-client-dashboard/): Client portal launch for content, media, analytics, and publish
 - [Get Found Online Las Cruces](https://blog.blacnova.net/blogs/las-cruces-get-found-online/): Local search playbook for Mesilla Valley businesses
 - [Who Needs a Website](https://blog.blacnova.net/blogs/who-needs-a-website/): Who, when, why, benefits vs GBP and Instagram
 - [Types of Websites](https://blog.blacnova.net/blogs/types-of-websites/): Brochure, ecommerce, portfolio, landing, booking, hybrids

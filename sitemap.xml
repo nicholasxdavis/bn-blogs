@@ -9,6 +9,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://blog.blacnova.net/blogs/blacnova-client-dashboard/</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://blog.blacnova.net/blogs/las-cruces-get-found-online/</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>

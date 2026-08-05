@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducing the Blacnova Client Dashboard | Blacnova Development</title>
+    <meta name="description" content="Blacnova Development launches the client dashboard at dashboard.blacnova.net: per-client portals for content, media, analytics, form submissions, and publish, backed by a Cloudflare Workers API.">
+    <meta name="keywords" content="Blacnova Client Dashboard, Blacnova Development, client portal, website CMS, Cloudflare Workers, Las Cruces web development, dashboard.blacnova.net, website analytics">
+    <meta name="author" content="Blacnova Development">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="geo.region" content="US-NM">
+    <meta name="geo.placename" content="Las Cruces, Mesilla">
+    <link rel="canonical" href="https://blog.blacnova.net/blogs/blacnova-client-dashboard/">
+    <link rel="icon" href="../../logo.png" type="image/png">
+
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Blacnova Development Blog">
+    <meta property="og:url" content="https://blog.blacnova.net/blogs/blacnova-client-dashboard/">
+    <meta property="og:title" content="Introducing the Blacnova Client Dashboard">
+    <meta property="og:description" content="Every Blacnova customer gets their own portal: edit content, manage media, read live analytics, and publish, powered by our Cloudflare API.">
+    <meta property="og:image" content="https://blog.blacnova.net/img/desktop-1.png">
+    <meta property="article:published_time" content="2026-08-05T23:50:00.000Z">
+    <meta property="article:modified_time" content="2026-08-05T23:50:00.000Z">
+    <meta property="article:author" content="Blacnova Development">
+    <meta property="article:section" content="News">
+    <meta property="article:tag" content="Client Dashboard">
+    <meta property="article:tag" content="Product">
+    <meta property="article:tag" content="Cloudflare">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Introducing the Blacnova Client Dashboard">
+    <meta name="twitter:description" content="Per-client portals for content, media, analytics, and publish. Live at dashboard.blacnova.net.">
+    <meta name="twitter:image" content="https://blog.blacnova.net/img/desktop-1.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forge: { 500: '#f97316', 600: '#ea580c' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background: #000; color: #f3f4f6; font-family: Inter, sans-serif; }
+        .blog-content { color: #d1d5db; }
+        .blog-content h2 {
+            font-size: 1.875rem; line-height: 2.25rem; font-weight: 600;
+            color: #fff; margin-top: 3rem; margin-bottom: 1rem; letter-spacing: -0.025em;
+        }
+        .blog-content h3 {
+            font-size: 1.25rem; font-weight: 600; color: #fff; margin-top: 1.75rem; margin-bottom: 0.75rem;
+        }
+        .blog-content p { font-size: 1.125rem; line-height: 1.75rem; margin-bottom: 1.5rem; }
+        .blog-content a { color: #d4611c; text-decoration: none; font-weight: 500; }
+        .blog-content a:hover { text-decoration: underline; }
+        .blog-content ul, .blog-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        .blog-content li { font-size: 1.125rem; line-height: 1.75rem; margin-bottom: 0.5rem; color: #d1d5db; }
+        .blog-content ul { list-style: disc; }
+        .blog-content ol { list-style: decimal; }
+        .blog-content img {
+            border-radius: 0.75rem;
+            border: 1px solid #374151;
+            width: 100%;
+            height: auto;
+            margin: 0.5rem 0 0.75rem;
+        }
+        .blog-content figcaption {
+            font-size: 0.95rem;
+            color: #9ca3af;
+            margin-bottom: 1.75rem;
+        }
+        .shot-grid {
+            display: grid;
+            gap: 1rem;
+            margin: 0.5rem 0 1.75rem;
+        }
+        @media (min-width: 640px) {
+            .shot-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .shot-grid figure { margin: 0; }
+        .shot-grid img { margin-bottom: 0.5rem; }
+        .shot-grid figcaption { margin-bottom: 0; }
+        .toc {
+            border: 1px solid #374151; background: #000; border-radius: 0.5rem;
+            padding: 0.75rem 1rem; margin: 1.5rem 0;
+        }
+        .toc h2 { font-size: 0.875rem; font-weight: 600; color: #fff; margin: 0 0 0.5rem; }
+        .toc ul { list-style: none; padding: 0; margin: 0; }
+        .toc li { margin-bottom: 0.25rem; font-size: 0.875rem; }
+        .toc a { color: #d4611c; font-weight: 500; font-size: 0.875rem; }
+        .header {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .header.scrolled { background-color: rgba(0, 0, 0, 0.95); }
+        .header-content, .logo { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .logo { width: auto !important; object-fit: contain; }
+        .cta-box {
+            border: 1px solid #374151; border-radius: 0.75rem; padding: 1.5rem;
+            background: linear-gradient(180deg, #161618 0%, #0a0a0a 100%);
+            margin: 2.5rem 0;
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://blog.blacnova.net/blogs/blacnova-client-dashboard/#breadcrumb",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Blog", "item": "https://blog.blacnova.net/" },
+            { "@type": "ListItem", "position": 2, "name": "Introducing the Blacnova Client Dashboard", "item": "https://blog.blacnova.net/blogs/blacnova-client-dashboard/" }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://blog.blacnova.net/blogs/blacnova-client-dashboard/#article",
+          "headline": "Introducing the Blacnova Client Dashboard",
+          "description": "Blacnova Development launches the client dashboard: per-client portals for content, media, analytics, submissions, and publish, backed by a Cloudflare Workers API.",
+          "image": [
+            "https://blog.blacnova.net/img/desktop-1.png",
+            "https://blog.blacnova.net/img/desktop-2.png",
+            "https://blog.blacnova.net/img/mobile-1.png",
+            "https://blog.blacnova.net/img/mobile-2.png"
+          ],
+          "datePublished": "2026-08-05T23:50:00.000Z",
+          "dateModified": "2026-08-05T23:50:00.000Z",
+          "author": {
+            "@type": "Organization",
+            "name": "Blacnova Development",
+            "url": "https://www.blacnova.net"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Blacnova Development",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.blacnova.net/img/logo_white.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.blacnova.net/blogs/blacnova-client-dashboard/"
+          },
+          "keywords": ["Blacnova Client Dashboard", "client portal", "Cloudflare Workers", "CMS", "Las Cruces"],
+          "articleSection": "News",
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://blog.blacnova.net/blogs/blacnova-client-dashboard/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the Blacnova Client Dashboard?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It is a private web portal at dashboard.blacnova.net where each Blacnova customer manages their own website: content, media, pages, maintenance mode, form submissions, analytics, and publish."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do clients share one login?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Each customer account is bound to their website. Managers only see modules enabled for their site. Platform admin tools stay with Blacnova staff."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where does the data live?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The dashboard talks to BlacnovaAPI, a Cloudflare Worker with D1 for structured data, KV for sessions and media metadata, and GitHub publish for live site content."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is analytics real-time?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Traffic is collected through Cloudflare Workers analytics on the live site and shown in the dashboard as visitors, page views, form submissions, and engagement over time."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://www.blacnova.net/#organization",
+          "name": "Blacnova Development",
+          "url": "https://www.blacnova.net",
+          "image": "https://www.blacnova.net/img/logo_white.png",
+          "description": "Web design, web development, SEO, and client portals for Las Cruces, Mesilla, and Southern New Mexico.",
+          "areaServed": [
+            { "@type": "City", "name": "Las Cruces" },
+            { "@type": "City", "name": "Mesilla" },
+            { "@type": "State", "name": "New Mexico" }
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Las Cruces",
+            "addressRegion": "NM",
+            "addressCountry": "US"
+          },
+          "knowsAbout": ["Client Dashboard", "Web Development", "Cloudflare", "CMS"]
+        }
+      ]
+    }
+    </script>
+</head>
+<body class="antialiased">
+
+    <header class="header fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="header-content flex justify-between items-center h-24">
+                <div class="flex items-center">
+                    <a href="../../index.html" class="flex items-center">
+                        <img src="https://www.blacnova.net/img/logo_white.png" alt="Blacnova Development Logo" class="logo h-20 w-auto">
+                    </a>
+                </div>
+                <nav class="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2">
+                    <div class="flex space-x-8"></div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-prose mx-auto px-4 py-16 lg:py-24 mt-24">
+        <header>
+            <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-white mb-4">
+                Introducing the Blacnova Client Dashboard
+            </h1>
+            <p class="text-xl text-gray-400 mb-8">
+                Aug 5, 2026 · by <span class="font-medium text-gray-200">Blacnova Development</span> · Las Cruces, NM
+            </p>
+        </header>
+
+        <article class="blog-content" itemscope itemtype="https://schema.org/BlogPosting">
+            <meta itemprop="headline" content="Introducing the Blacnova Client Dashboard">
+            <meta itemprop="datePublished" content="2026-08-05">
+            <meta itemprop="dateModified" content="2026-08-05">
+
+            <p>
+                Today we are shipping something we have been building toward for a long time: the <a href="https://dashboard.blacnova.net">Blacnova Client Dashboard</a>. It is the home base for every site we run. Not a generic page builder bolted on later. A real client portal, wired to our own API on Cloudflare, designed so Las Cruces and Mesilla Valley customers can manage their websites without waiting on us for every copy change, logo swap, or form inquiry.
+            </p>
+            <p>
+                This is a big step for Blacnova Development. The marketing site at <a href="https://www.blacnova.net">www.blacnova.net</a> is the front door. The dashboard is where the relationship continues after launch: content, media, traffic, submissions, and publish, in one place, on phone or desktop.
+            </p>
+
+            <figure>
+                <img src="../../img/desktop-1.png" alt="Blacnova Client Dashboard overview showing traffic, submissions, and site status for www.blacnova.net" width="1400" height="900" loading="eager">
+                <figcaption>Overview: traffic, recent form submissions, and live site status in one screen.</figcaption>
+            </figure>
+
+            <nav class="toc" aria-label="Table of contents">
+                <h2>Contents</h2>
+                <ul>
+                    <li><a href="#why">Why we built it</a></li>
+                    <li><a href="#what">What the dashboard is for</a></li>
+                    <li><a href="#tenants">How customers get their own portal</a></li>
+                    <li><a href="#modules">What you can do inside</a></li>
+                    <li><a href="#analytics">Live analytics</a></li>
+                    <li><a href="#api">The API underneath</a></li>
+                    <li><a href="#publish">Publish without drama</a></li>
+                    <li><a href="#mobile">Built for the phone too</a></li>
+                    <li><a href="#roles">Client tools vs Blacnova admin</a></li>
+                    <li><a href="#why-big">Why this matters for Blacnova</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+
+            <h2 id="why">Why we built it</h2>
+            <p>
+                A website that only Blacnova can touch becomes a bottleneck. Hours change. A promo needs to go up. A client logo needs replacing. Someone fills out the contact form at 9 p.m. If every update requires an email thread and a deploy calendar, the site stops feeling like the client's business asset and starts feeling like a black box.
+            </p>
+            <p>
+                We also did not want to hand people a WordPress admin full of plugins, or a third-party CMS that does not match how we host and ship. Blacnova sites already lean on Cloudflare for delivery and security. The dashboard and API follow that same stack: fast at the edge, secrets out of the browser, multi-tenant from day one.
+            </p>
+            <p>
+                So we built our own portal. Customers log in. They see their website. They edit what they should edit. We keep the platform tooling that only Blacnova staff should see.
+            </p>
+
+            <h2 id="what">What the dashboard is for</h2>
+            <p>
+                At a high level, the Blacnova Client Dashboard answers four questions for a business owner or manager:
+            </p>
+            <ol>
+                <li><strong class="text-white">Is the site healthy?</strong> Live status, maintenance mode, draft content, media count.</li>
+                <li><strong class="text-white">Is anyone showing up?</strong> Visitors, page views, and trends versus the prior period.</li>
+                <li><strong class="text-white">Did anyone reach out?</strong> Form submissions from the live site, with status you can work.</li>
+                <li><strong class="text-white">Can I update the site myself?</strong> Content blocks, pages, media library, then publish when ready.</li>
+            </ol>
+            <p>
+                It is not a design studio inside a browser. Layout and engineering stay with Blacnova. Day-to-day ownership of words, images, inquiries, and visibility moves into the client's hands.
+            </p>
+
+            <h2 id="tenants">How customers get their own portal</h2>
+            <p>
+                Under the hood, every client website is a first-class record: domain, modules, status, and the accounts allowed to manage it. When we onboard a customer, we create their site in the platform, enable the modules that match their project, and issue manager logins bound to that website only.
+            </p>
+            <p>
+                That means:
+            </p>
+            <ul>
+                <li>You do not share a master Blacnova password with five people and a contractor.</li>
+                <li>You do not see another client's content, media, or leads.</li>
+                <li>If a module is not part of your build (for example, maintenance tools on a simple brochure site), it does not clutter your nav.</li>
+                <li>When someone leaves the business, we can revoke their account without rebuilding the site.</li>
+            </ul>
+            <p>
+                The portal lives at <a href="https://dashboard.blacnova.net">dashboard.blacnova.net</a>. Sign in, and the sidebar shows your current website name and domain so there is never confusion about which property you are editing.
+            </p>
+
+            <h2 id="modules">What you can do inside</h2>
+            <p>
+                Client navigation is modular. Typical modules include:
+            </p>
+
+            <h3>Overview</h3>
+            <p>
+                A status board for the week: recorded visitors and page views, new submissions that need attention, published page count, a traffic chart, recent inquiries, availability, domain, draft content, and media library size. From here you can jump into edit or publish.
+            </p>
+
+            <h3>Content</h3>
+            <p>
+                Edit the text blocks and structured content that power the live site. Change headlines, service copy, and other CMS-backed fields without opening a code editor. Drafts stay drafts until you publish.
+            </p>
+
+            <h3>Media</h3>
+            <p>
+                Upload, replace, and remove images used on the site: logos, hero shots, project screenshots, brand assets. Search and filter the library. See where an asset is used so a replace does not become a guessing game.
+            </p>
+
+            <figure>
+                <img src="../../img/desktop-2.png" alt="Blacnova Dashboard Media library with logos, hero images, and client brand assets" width="1400" height="900" loading="lazy">
+                <figcaption>Media library: upload, search, replace, and remove assets tied to the live site.</figcaption>
+            </figure>
+
+            <h3>Pages</h3>
+            <p>
+                See which pages exist, what is published, and what still needs work. The goal is clarity: you should know what is live without asking us for a checklist.
+            </p>
+
+            <h3>Maintenance</h3>
+            <p>
+                Flip maintenance mode when you need a controlled downtime message instead of a half-broken page. Visitors see the maintenance experience we configured for the site; you manage the switch from the dashboard.
+            </p>
+
+            <h3>Submissions</h3>
+            <p>
+                Contact and quote forms on the public site post into the API with spam controls (honeypot, timing checks, rate limits). Inside the dashboard, those inquiries show up as submissions you can review and mark as you work them. No more digging through a shared inbox hoping the form email survived the spam folder.
+            </p>
+
+            <h3>Analytics</h3>
+            <p>
+                Deeper traffic and conversion views: visitors, page views, form submissions, average pages per visit, and charts over selectable ranges. More on that below.
+            </p>
+
+            <h3>Settings</h3>
+            <p>
+                Account and site preferences for the people who manage the portal day to day.
+            </p>
+
+            <h2 id="analytics">Live analytics without a third-party maze</h2>
+            <p>
+                Analytics in the dashboard are not a screenshot of someone else's product. The public site collects pageviews through our Cloudflare Workers-backed pipeline. The dashboard reads that data for the website you are logged into.
+            </p>
+            <p>
+                You get:
+            </p>
+            <ul>
+                <li>Visitor and page-view totals with comparison to the prior period</li>
+                <li>Form submission counts and trends</li>
+                <li>Average pages per visit</li>
+                <li>Visitors and page views over time</li>
+                <li>Form submissions over time</li>
+                <li>Ranges such as all recorded, last five weeks, or last 30 days</li>
+            </ul>
+            <p>
+                For a local business, that is the practical set: are people showing up, are they looking around, and are they asking for work? You should not need a separate analytics login for the basics.
+            </p>
+
+            <div class="shot-grid">
+                <figure>
+                    <img src="../../img/mobile-1.png" alt="Mobile analytics view showing visitors, page views, form submissions, and average pages per visit" width="600" height="1200" loading="lazy">
+                    <figcaption>Analytics on mobile: core metrics at a glance.</figcaption>
+                </figure>
+                <figure>
+                    <img src="../../img/mobile-2.png" alt="Mobile dashboard charts for visitors over time and form submissions" width="600" height="1200" loading="lazy">
+                    <figcaption>Charts for traffic and form submissions on the go.</figcaption>
+                </figure>
+            </div>
+
+            <h2 id="api">The API underneath</h2>
+            <p>
+                The dashboard is a Vue application. The brain is <strong class="text-white">BlacnovaAPI</strong>: a Cloudflare Worker that owns auth, data, media, public CMS endpoints, form intake, analytics collection, and publish.
+            </p>
+            <p>
+                A short mental model:
+            </p>
+            <ul>
+                <li><strong class="text-white">Public site</strong> loads published content and maintenance state from the API, and posts forms and analytics events to public routes.</li>
+                <li><strong class="text-white">Dashboard</strong> authenticates with a session token and talks to tenant routes for the website bound to that login.</li>
+                <li><strong class="text-white">D1</strong> holds structured platform data (websites, accounts, content, submissions, and related records).</li>
+                <li><strong class="text-white">KV</strong> holds sessions and media-related storage bindings.</li>
+                <li><strong class="text-white">GitHub Contents API</strong> is how publish lands on the live website repo when content should go public.</li>
+            </ul>
+            <p>
+                Secrets (GitHub tokens, Stripe keys, email credentials, webhook signing secrets) live in Cloudflare secret bindings. They are not shipped in the dashboard frontend and not committed to git. That same discipline shows up in how we secure client projects generally; the dashboard is not an exception.
+            </p>
+            <p>
+                Platform-only routes stay locked to Blacnova staff. Client managers never get Clients, Accounts, Billing, or Invoices in their navigation. Multi-tenant readiness is not a slide deck promise. It is how the API and router are written.
+            </p>
+
+            <h2 id="publish">Publish without drama</h2>
+            <p>
+                Editing in the dashboard and going live are intentional steps. You can work on content, review drafts, and hit publish when the change is ready. Publish pushes to the website through the API's GitHub path so the live static site stays the source visitors actually hit, while the dashboard remains the control plane.
+            </p>
+            <p>
+                That split matters. Visitors get a fast, cacheable site. Clients get a managed editing experience. Blacnova keeps a clean deploy story instead of improvising FTP uploads at midnight.
+            </p>
+
+            <h2 id="mobile">Built for the phone too</h2>
+            <p>
+                Site owners do not only sit at a desk. The dashboard is usable on a phone: overview metrics, analytics charts, submission review, and navigation that collapses into a mobile drawer. If you are at a job site in Las Cruces and want to check whether a form came in, you should not need a laptop.
+            </p>
+
+            <h2 id="roles">Client tools vs Blacnova admin</h2>
+            <p>
+                Two roles, clear boundary:
+            </p>
+            <ul>
+                <li><strong class="text-white">Managers</strong> (customers) see website modules only: overview, content, media, pages, maintenance, submissions, analytics, settings, as enabled for their site.</li>
+                <li><strong class="text-white">Platform</strong> (Blacnova staff) see those modules plus Clients, Accounts, Billing, Invoices, and Dashboard Support.</li>
+            </ul>
+            <p>
+                Billing and invoicing stay on the Blacnova side of the product. Customers should feel ownership of their website, not a finance console they did not ask for. When we need Stripe, invoice email, or ledger tooling, it lives behind platform auth.
+            </p>
+
+            <h2 id="why-big">Why this matters for Blacnova</h2>
+            <p>
+                Shipping the dashboard changes what we sell and how we support it.
+            </p>
+            <p>
+                Before, a finished website was mostly a handoff plus ongoing help when something broke or needed changing. Now, every engagement can include a living portal: the same place where we operate the platform and where the client runs day-to-day updates. Support becomes clearer. Scope becomes clearer. The site stays fresher because the people closest to the business can touch it safely.
+            </p>
+            <p>
+                It also locks in our stack. Website, dashboard, and API are one system. Cloudflare at the edge. Auth that respects tenant boundaries. Forms that feed a real inbox inside the product. Analytics that do not depend on a mystery script. That is the foundation we will keep extending as more client sites come online.
+            </p>
+            <p>
+                For Mesilla Valley businesses, the pitch stays simple: we design and build the site, we host it the way we trust, and you get a dashboard that treats the website like something you run, not something you rent back from us one email at a time.
+            </p>
+
+            <div class="cta-box">
+                <h3 class="mt-0!">Want a site that comes with a real client portal?</h3>
+                <p class="mb-4">Tell us what you need online. We will scope the build and the dashboard modules that match how you actually work.</p>
+                <p class="mb-0">
+                    <a href="https://www.blacnova.net/#contact">Start a project on blacnova.net</a>
+                    ·
+                    <a href="https://dashboard.blacnova.net">Open the dashboard</a>
+                </p>
+            </div>
+
+            <h2 id="faq">FAQ</h2>
+
+            <h3>What is the Blacnova Client Dashboard?</h3>
+            <p>
+                A private web app at dashboard.blacnova.net where each Blacnova customer manages their own website: content, media, pages, maintenance, form submissions, analytics, and publish.
+            </p>
+
+            <h3>Do all clients share one login?</h3>
+            <p>
+                No. Accounts are bound to a specific website. Managers only see what their site is allowed to see. Other clients' data stays out of reach.
+            </p>
+
+            <h3>Can I redesign the whole site from the dashboard?</h3>
+            <p>
+                No, and that is intentional. Structural design and engineering stay with Blacnova. The dashboard is for operating the site: copy, media, leads, visibility, and publish. Bigger redesigns are still project work.
+            </p>
+
+            <h3>Where does analytics data come from?</h3>
+            <p>
+                From our Cloudflare Workers-backed collection on the live site, surfaced in the dashboard for the website you are logged into. You get visitors, page views, submissions, and engagement trends without a separate analytics product for the basics.
+            </p>
+
+            <h3>Is this only for the Blacnova marketing site?</h3>
+            <p>
+                The platform is multi-tenant. We run Blacnova's own site on it first because that is the dogfood path. Client websites get the same model: a website record, enabled modules, and manager accounts.
+            </p>
+
+            <h3>How do form submissions stay out of spam hell?</h3>
+            <p>
+                Public form posts hit the API with honeypot fields, timing checks, origin allowlisting, disposable-email blocking, soft duplicate guards, and rate limits. Valid inquiries land in the Submissions module for review.
+            </p>
+
+            <h3>Who can use Billing and Invoices?</h3>
+            <p>
+                Blacnova platform staff only. Client dashboards stay focused on the website, not platform finance tools.
+            </p>
+
+            <h2 id="next">What ships next</h2>
+            <p>
+                This release is the foundation: auth, tenant modules, media, submissions, analytics, publish, and the platform admin surface we need to run the studio. We will keep tightening the editing experience, onboarding more client sites onto their own portals, and extending modules where real customer work demands it.
+            </p>
+            <p>
+                If you already work with us, your dashboard access is part of how we deliver. If you are shopping for a Las Cruces or Mesilla website that you can actually run after launch, this is the difference we want you to feel.
+            </p>
+            <p>
+                <a href="https://www.blacnova.net/#contact">Request a quote</a> ·
+                <a href="../cloudflare-security-client-projects/index.html">How we secure client projects</a> ·
+                <a href="../about-blacnova/index.html">About Blacnova Development</a> ·
+                <a href="../../index.html">Back to the blog</a>
+            </p>
+        </article>
+
+        <section class="mt-20" aria-labelledby="related-heading">
+            <h2 id="related-heading" class="text-3xl font-semibold text-white mb-6">More from Blacnova Development</h2>
+            <div class="grid gap-5">
+                <a href="../cloudflare-security-client-projects/index.html" class="block p-6 rounded-lg bg-[#161618] hover:bg-[#1c1c1e] border border-white/5">
+                    <p class="text-base font-medium text-white">How we secure client projects with Cloudflare</p>
+                    <p class="text-base text-gray-400 mt-2">WAF, DDoS, Turnstile, Workers secrets, and the habits behind the same stack that powers the dashboard API.</p>
+                </a>
+                <a href="../about-blacnova/index.html" class="block p-6 rounded-lg bg-[#161618] hover:bg-[#1c1c1e] border border-white/5">
+                    <p class="text-base font-medium text-white">About Blacnova Development</p>
+                    <p class="text-base text-gray-400 mt-2">Who we are, what we build in Las Cruces, and how projects run.</p>
+                </a>
+            </div>
+        </section>
+
+        <footer class="mt-16 pt-8 border-t border-white/20 text-center text-white/60">
+            <a href="../../index.html" aria-label="Blacnova Development Blog home">
+                <img src="https://www.blacnova.net/img/bn.png" alt="Blacnova Development" class="h-16 mx-auto mb-4" width="64" height="64">
+            </a>
+            <p class="text-white/70">Web design, apps, and client portals in Las Cruces and Mesilla, New Mexico.</p>
+            <p class="mt-6">&copy; <span id="year">2026</span> Blacnova Development. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('.header');
+            const headerContent = document.querySelector('.header-content');
+            const logo = document.querySelector('.logo');
+            const handleScroll = () => {
+                if (!header || !headerContent || !logo) return;
+                const isScrolled = window.scrollY > 50;
+                header.classList.toggle('scrolled', isScrolled);
+                headerContent.classList.toggle('h-16', isScrolled);
+                headerContent.classList.toggle('h-24', !isScrolled);
+                logo.classList.toggle('h-12', isScrolled);
+                logo.classList.toggle('h-20', !isScrolled);
+            };
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+        });
+    </script>
+    <script src="../../js/PreviousPage.js"></script>
+</body>
+</html>
