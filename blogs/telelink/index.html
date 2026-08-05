@@ -4,24 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Blacnova | Introducing TeleLink</title>
-    <meta name="description" content="Your iPhone on Windows — for you and your AI agents. A local CLI bridging Phone Link with your terminal.">
+    <title>Introducing TeleLink | Blacnova Development Blog | Las Cruces, NM</title>
+    <meta name="description" content="TeleLink from Blacnova Development (Las Cruces, NM): a free local Windows CLI bridging Phone Link with your terminal and AI agents like Cursor and Claude Code.">
     <link rel="icon" href="../../logo.png" type="image/png" />
-    <meta name="keywords" content="Blacnova, TeleLink, iPhone, Windows, CLI, Phone Link, AI agents, Cursor, Claude Code">
+    <meta name="keywords" content="Blacnova Development, TeleLink, iPhone, Windows, CLI, Phone Link, AI agents, Las Cruces software, Mesilla Valley">
     <meta name="author" content="Blacnova Development">
-    <link rel="canonical" href="https://www.blacnova.net/blog/introducing-telelink/"> 
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="geo.region" content="US-NM">
+    <meta name="geo.placename" content="Las Cruces">
+    <link rel="canonical" href="https://blog.blacnova.net/blogs/telelink/"> 
 
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.blacnova.net/blog/introducing-telelink/"> 
-    <meta property="og:title" content="Blacnova | Introducing TeleLink">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Blacnova Development Blog">
+    <meta property="og:url" content="https://blog.blacnova.net/blogs/telelink/"> 
+    <meta property="og:title" content="Introducing TeleLink | Blacnova Development">
     <meta property="og:description" content="TeleLink is a local Windows CLI that bridges Phone Link with your terminal, scripts, and coding assistants like Cursor and Claude Code.">
-    <meta property="og:image" content="https://www.blacnova.net/img/logo_white.png"> 
+    <meta property="og:image" content="https://www.blacnova.net/img/logo_white.png">
+    <meta property="article:published_time" content="2026-06-04T00:00:00.000Z">
 
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:url" content="https://www.blacnova.net/blog/introducing-telelink/"> 
-    <meta name="twitter:title" content="Blacnova | Introducing TeleLink">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://blog.blacnova.net/blogs/telelink/"> 
+    <meta name="twitter:title" content="Introducing TeleLink | Blacnova Development">
     <meta name="twitter:description" content="TeleLink is a local Windows CLI that bridges Phone Link with your terminal, scripts, and coding assistants like Cursor and Claude Code.">
-    <meta name="twitter:image" content="https://www.blacnova.net/img/logo_white.png"> 
+    <meta name="twitter:image" content="https://www.blacnova.net/img/logo_white.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Blog", "item": "https://blog.blacnova.net/" },
+            { "@type": "ListItem", "position": 2, "name": "Introducing TeleLink", "item": "https://blog.blacnova.net/blogs/telelink/" }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Introducing TeleLink",
+          "description": "Your iPhone on Windows, for you and your AI agents. A local CLI bridging Phone Link with your terminal.",
+          "image": "https://www.blacnova.net/img/logo_white.png",
+          "datePublished": "2026-06-04T00:00:00.000Z",
+          "dateModified": "2026-06-04T00:00:00.000Z",
+          "author": { "@type": "Organization", "name": "Blacnova Development", "url": "https://www.blacnova.net" },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Blacnova Development",
+            "logo": { "@type": "ImageObject", "url": "https://www.blacnova.net/img/logo_white.png" }
+          },
+          "mainEntityOfPage": { "@type": "WebPage", "@id": "https://blog.blacnova.net/blogs/telelink/" },
+          "inLanguage": "en-US"
+        }
+      ]
+    }
+    </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -455,6 +492,11 @@
 
         }
 
+        .logo {
+            width: auto !important;
+            object-fit: contain;
+        }
+
         .mobile-menu {
 
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -673,7 +715,7 @@
 
 
 
-    <!-- Header from Blacnova -->
+    <!-- Header from Blacnova Development -->
 
     <header class="header fixed top-0 left-0 w-full z-50">
 
@@ -685,7 +727,7 @@
 
                     <a href="../../index.html" class="flex items-center">
 
-                        <img src="https://www.blacnova.net/img/logo_white.png" alt="Blacnova Logo" class="logo h-20">
+                        <img src="https://www.blacnova.net/img/logo_white.png" alt="Blacnova Development Logo" class="logo h-20 w-auto">
 
                     </a>
 
@@ -745,7 +787,7 @@
                 Introducing TeleLink
             </h1>
             <p class="text-xl text-gray-400 mb-8">
-                Jun 4, 2026 by <span class="font-medium text-gray-200">Blacnova</span>
+                Jun 4, 2026 by <span class="font-medium text-gray-200">Blacnova Development</span>
             </p>
         </header>
  
@@ -758,10 +800,10 @@
                 TeleLink is an open-source, completely free local Windows CLI that connects your coding environment directly to client management. With no subscriptions or paywalls, it lets coding agents like Cursor, Gemini CLI, Codex, and Claude Code send SMS messages on your behalf using your actual phone over Bluetooth.
             </p>
             <p>
-                Imagine having your agent generate and send a client a changelog right after an update. TeleLink watches the thread for real replies so you can stay focused. It also doubles as a full assistant that schedules messages for later and features solid image recognition.
+                Your agent can draft a changelog and text it to a client right after an update. TeleLink watches the thread for real replies so you can stay focused. It also schedules messages for later and includes image recognition for incoming attachments.
             </p>
             <p>
-                No APIs and no Macbook needed. It is completely free with endless usage, assuming you have an unlimited mobile plan. If not, yikes!
+                No APIs and no Mac needed. It is free to use as much as you want, as long as your mobile plan can handle the texts.
             </p>
 
             <!-- Table of Contents -->
@@ -851,12 +893,12 @@
             <div class="container mx-auto px-4">
                 <div class="flex justify-center">
                     <a href="#" aria-label="Back to homepage">
-                        <img src="https://www.blacnova.net/img/bn.png" alt="Blacnova Icon" class="h-20 mx-auto">
+                        <img src="https://www.blacnova.net/img/bn.png" alt="Blacnova Development Icon" class="h-20 mx-auto">
                     </a>
                 </div>
                 <p class="text-center text-white/70 mt-4">Founded in Las Cruces, New Mexico.</p>
                 <div class="border-t border-white/40 mt-12 pt-8 text-center text-white/60">
-                    <p>&copy; <span id="year">2025</span> Blacnova. All rights reserved.</p>
+                    <p>&copy; <span id="year">2025</span> Blacnova Development. All rights reserved.</p>
                 </div>
             </div>
         </footer>
@@ -891,20 +933,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- **** END FIX **** -->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/shimmerjs@1.0.3/dist/shimmer.min.js"></script>
 
 
 

@@ -1,0 +1,30 @@
+# Blacnova Development Blog
+
+> Website design, product launches, and digital strategy from Las Cruces and Mesilla, New Mexico.
+
+## Primary pages
+
+- [Blog home](https://blog.blacnova.net/): Index of all posts
+- [Get Found Online Las Cruces](https://blog.blacnova.net/blogs/las-cruces-get-found-online/): Local search playbook for Mesilla Valley businesses
+- [Who Needs a Website](https://blog.blacnova.net/blogs/who-needs-a-website/): Who, when, why, benefits vs GBP and Instagram
+- [Types of Websites](https://blog.blacnova.net/blogs/types-of-websites/): Brochure, ecommerce, portfolio, landing, booking, hybrids
+- [Website Design Las Cruces & Mesilla](https://blog.blacnova.net/blogs/website-design-las-cruces-mesilla/): Local SEO pillar for Mesilla Valley web design
+- [About Blacnova Development](https://blog.blacnova.net/blogs/about-blacnova/): Who we are and how projects run
+- [AI Brand Media Cost](https://blog.blacnova.net/blogs/ai-media-business-cost/): Why AI logos and flyers hurt NM businesses
+- [Cloudflare Security](https://blog.blacnova.net/blogs/cloudflare-security-client-projects/): How we secure client projects
+- [Las Cruces Business Resources](https://blog.blacnova.net/blogs/las-cruces-business-resources/): Local print and free counseling shortlist
+- [TeleLink](https://blog.blacnova.net/blogs/telelink/): iPhone to Windows CLI for AI agents
+- [TIIO](https://blog.blacnova.net/blogs/tiio/): Offline-first media hub
+- [TIIO vs Streaming](https://blog.blacnova.net/blogs/tiio-compare/): Resource and privacy research
+
+## Business
+
+- Company: Blacnova Development
+- Site: https://www.blacnova.net
+- Location: Las Cruces / Mesilla, New Mexico, USA
+- Services: Website design, web development, SEO, digital tools
+
+## Crawl
+
+- Sitemap: https://blog.blacnova.net/sitemap.xml
+- Robots: https://blog.blacnova.net/robots.txt

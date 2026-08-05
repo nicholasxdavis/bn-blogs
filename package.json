@@ -1,0 +1,26 @@
+{
+  "name": "bn-blogs-main",
+  "version": "1.0.0",
+  "description": "Blacnova Blog — Las Cruces & Mesilla website design, products, and insights",
+  "private": true,
+  "scripts": {
+    "serve": "serve -l 4173 .",
+    "audit:seo": "node scripts/seo-audit.mjs",
+    "audit:lighthouse": "node scripts/lighthouse-audit.mjs",
+    "audit": "npm run audit:seo && npm run audit:lighthouse"
+  },
+  "keywords": [
+    "blacnova",
+    "las-cruces",
+    "mesilla",
+    "website-design",
+    "seo"
+  ],
+  "author": "Blacnova Development",
+  "license": "ISC",
+  "devDependencies": {
+    "lighthouse": "^13.4.1",
+    "playwright": "^1.62.1",
+    "serve": "^14.2.6"
+  }
+}

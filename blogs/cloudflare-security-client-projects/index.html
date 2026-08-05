@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Blacnova Development Secures Client Projects with Cloudflare | Blacnova Development</title>
+    <meta name="description" content="How Blacnova Development builds security into client projects: Cloudflare WAF, DDoS protection, Turnstile, Workers secrets, TLS, and the habits that keep Las Cruces businesses safer online.">
+    <meta name="keywords" content="Cloudflare security, Blacnova Development, website security Las Cruces, WAF, DDoS protection, Turnstile, Cloudflare Workers, client web security, New Mexico web development">
+    <meta name="author" content="Blacnova Development">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="geo.region" content="US-NM">
+    <meta name="geo.placename" content="Las Cruces, Mesilla">
+    <link rel="canonical" href="https://blog.blacnova.net/blogs/cloudflare-security-client-projects/">
+    <link rel="icon" href="../../logo.png" type="image/png">
+
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Blacnova Development Blog">
+    <meta property="og:url" content="https://blog.blacnova.net/blogs/cloudflare-security-client-projects/">
+    <meta property="og:title" content="How Blacnova Development Secures Client Projects with Cloudflare">
+    <meta property="og:description" content="Our practical security stack for client websites and apps: Cloudflare at the edge, safe secrets, and habits that prevent common breaches.">
+    <meta property="og:image" content="https://www.blacnova.net/img/logo_white.png">
+    <meta property="article:published_time" content="2026-08-05T22:00:00.000Z">
+    <meta property="article:modified_time" content="2026-08-05T22:00:00.000Z">
+    <meta property="article:author" content="Blacnova Development">
+    <meta property="article:section" content="Company">
+    <meta property="article:tag" content="Cloudflare">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Web Development">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How Blacnova Development Secures Client Projects with Cloudflare">
+    <meta name="twitter:description" content="WAF, DDoS, Turnstile, Workers secrets, and the security habits we build into every client project.">
+    <meta name="twitter:image" content="https://www.blacnova.net/img/logo_white.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forge: { 500: '#f97316', 600: '#ea580c' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background: #000; color: #f3f4f6; font-family: Inter, sans-serif; }
+        .blog-content { color: #d1d5db; }
+        .blog-content h2 {
+            font-size: 1.875rem; line-height: 2.25rem; font-weight: 600;
+            color: #fff; margin-top: 3rem; margin-bottom: 1rem; letter-spacing: -0.025em;
+        }
+        .blog-content h3 {
+            font-size: 1.25rem; font-weight: 600; color: #fff; margin-top: 1.75rem; margin-bottom: 0.75rem;
+        }
+        .blog-content p { font-size: 1.125rem; line-height: 1.75rem; margin-bottom: 1.5rem; }
+        .blog-content a { color: #d4611c; text-decoration: none; font-weight: 500; }
+        .blog-content a:hover { text-decoration: underline; }
+        .blog-content ul, .blog-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        .blog-content li { font-size: 1.125rem; line-height: 1.75rem; margin-bottom: 0.5rem; color: #d1d5db; }
+        .blog-content ul { list-style: disc; }
+        .blog-content ol { list-style: decimal; }
+        .toc {
+            border: 1px solid #374151; background: #000; border-radius: 0.5rem;
+            padding: 0.75rem 1rem; margin: 1.5rem 0;
+        }
+        .toc h2 { font-size: 0.875rem; font-weight: 600; color: #fff; margin: 0 0 0.5rem; }
+        .toc ul { list-style: none; padding: 0; margin: 0; }
+        .toc li { margin-bottom: 0.25rem; font-size: 0.875rem; }
+        .toc a { color: #d4611c; font-weight: 500; font-size: 0.875rem; }
+        .header {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .header.scrolled { background-color: rgba(0, 0, 0, 0.95); }
+        .header-content, .logo { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .logo { width: auto !important; object-fit: contain; }
+        .cta-box {
+            border: 1px solid #374151; border-radius: 0.75rem; padding: 1.5rem;
+            background: linear-gradient(180deg, #161618 0%, #0a0a0a 100%);
+            margin: 2.5rem 0;
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://blog.blacnova.net/blogs/cloudflare-security-client-projects/#breadcrumb",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Blog", "item": "https://blog.blacnova.net/" },
+            { "@type": "ListItem", "position": 2, "name": "Cloudflare Security for Client Projects", "item": "https://blog.blacnova.net/blogs/cloudflare-security-client-projects/" }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://blog.blacnova.net/blogs/cloudflare-security-client-projects/#article",
+          "headline": "How Blacnova Development Secures Client Projects with Cloudflare",
+          "description": "How Blacnova Development builds security into client websites and apps using Cloudflare WAF, DDoS protection, Turnstile, Workers secrets, and secure delivery practices.",
+          "image": "https://www.blacnova.net/img/logo_white.png",
+          "datePublished": "2026-08-05T22:00:00.000Z",
+          "dateModified": "2026-08-05T22:00:00.000Z",
+          "author": {
+            "@type": "Organization",
+            "name": "Blacnova Development",
+            "url": "https://www.blacnova.net"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Blacnova Development",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.blacnova.net/img/logo_white.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.blacnova.net/blogs/cloudflare-security-client-projects/"
+          },
+          "keywords": ["Cloudflare", "website security", "WAF", "DDoS", "Turnstile", "Blacnova Development", "Las Cruces"],
+          "articleSection": "Company",
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://blog.blacnova.net/blogs/cloudflare-security-client-projects/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Why does Blacnova Development use Cloudflare on client projects?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Cloudflare sits in front of the site and absorbs a large share of attacks, bots, and traffic spikes before they hit the origin. It also provides TLS, caching, WAF rules, Turnstile for forms, and edge compute through Workers and Pages."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Cloudflare replace secure coding?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Edge protection stops a lot of noise, but application bugs, leaked secrets, and weak auth still matter. Blacnova Development treats Cloudflare as one layer alongside secure development habits, least-privilege access, and careful secret handling."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can small Las Cruces businesses afford this stack?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Many Cloudflare protections are available on plans that fit small business budgets, and we size the setup to the project. A brochure site and a booking app do not need identical controls, but both should ship with HTTPS, sensible defaults, and protected forms."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://www.blacnova.net/#organization",
+          "name": "Blacnova Development",
+          "url": "https://www.blacnova.net",
+          "image": "https://www.blacnova.net/img/logo_white.png",
+          "description": "Web design, web development, and digital solutions for businesses in Las Cruces, Mesilla, and Southern New Mexico.",
+          "areaServed": [
+            { "@type": "City", "name": "Las Cruces" },
+            { "@type": "City", "name": "Mesilla" },
+            { "@type": "State", "name": "New Mexico" }
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Las Cruces",
+            "addressRegion": "NM",
+            "addressCountry": "US"
+          },
+          "knowsAbout": ["Website Security", "Cloudflare", "Web Development", "App Development"]
+        }
+      ]
+    }
+    </script>
+</head>
+<body class="antialiased">
+
+    <header class="header fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="header-content flex justify-between items-center h-24">
+                <div class="flex items-center">
+                    <a href="../../index.html" class="flex items-center">
+                        <img src="https://www.blacnova.net/img/logo_white.png" alt="Blacnova Development Logo" class="logo h-20 w-auto">
+                    </a>
+                </div>
+                <nav class="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2">
+                    <div class="flex space-x-8"></div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-prose mx-auto px-4 py-16 lg:py-24 mt-24">
+        <header>
+            <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-white mb-4">
+                How we secure client projects with Cloudflare
+            </h1>
+            <p class="text-xl text-gray-400 mb-8">
+                Aug 5, 2026 · by <span class="font-medium text-gray-200">Blacnova Development</span> · Las Cruces, NM
+            </p>
+        </header>
+
+        <article class="blog-content" itemscope itemtype="https://schema.org/BlogPosting">
+            <meta itemprop="headline" content="How Blacnova Development Secures Client Projects with Cloudflare">
+            <meta itemprop="datePublished" content="2026-08-05">
+            <meta itemprop="dateModified" content="2026-08-05">
+
+            <p>
+                When someone hires Blacnova Development to build a website or app, they are not just buying pages and features. They are trusting us with customer data, business reputation, and a public door on the internet that bots will knock on whether you are ready or not.
+            </p>
+            <p>
+                Security is not a plugin we bolt on at the end. It is how we design, host, and ship. Cloudflare is a core part of that stack because it sits at the edge of the network, in front of almost every project we put online. This post explains what that means in plain language: what we turn on, why it matters, and what clients in Las Cruces and beyond actually get.
+            </p>
+
+            <nav class="toc" aria-label="Table of contents">
+                <h2>Contents</h2>
+                <ul>
+                    <li><a href="#why-edge">Why we put Cloudflare at the front door</a></li>
+                    <li><a href="#tls">HTTPS and transport security</a></li>
+                    <li><a href="#ddos-waf">DDoS protection and the WAF</a></li>
+                    <li><a href="#bots">Bots, forms, and Turnstile</a></li>
+                    <li><a href="#workers">Workers, Pages, and secrets</a></li>
+                    <li><a href="#access">Admin access and least privilege</a></li>
+                    <li><a href="#code">Security habits in the code itself</a></li>
+                    <li><a href="#what-you-get">What clients get in practice</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+
+            <h2 id="why-edge">Why we put Cloudflare at the front door</h2>
+            <p>
+                A traditional setup points your domain straight at a single server. Every request, including the junk, lands on that machine. That is expensive, slow under load, and fragile when someone decides to flood you.
+            </p>
+            <p>
+                With Cloudflare, DNS for the project usually proxies through their network first. Visitors hit a nearby Cloudflare edge location. Clean traffic gets through. Cached static assets can be served without waking the origin. Malicious or abusive traffic gets filtered, challenged, or dropped earlier in the path.
+            </p>
+            <p>
+                For a Las Cruces restaurant site or a statewide service app, the benefit feels the same: faster delivery for real customers, fewer surprises when traffic spikes, and a shield that does not require you to become a full-time security team.
+            </p>
+
+            <h2 id="tls">HTTPS and transport security</h2>
+            <p>
+                Every public client site we ship should load over HTTPS. Cloudflare helps us enforce that with TLS certificates, redirects from plain HTTP, and modern encryption settings between the visitor and the edge.
+            </p>
+            <p>
+                We also care about the hop from Cloudflare to the origin when an origin still exists. Full (strict) style setups, where the edge validates a proper certificate on the origin, are preferred over modes that encrypt the visitor side but leave the backend loose. The goal is simple: no casual eavesdropping on forms, logins, or API calls in transit.
+            </p>
+            <ul>
+                <li>Force HTTPS so old links still land on a secure URL</li>
+                <li>Keep certificates current without manual monthly babysitting</li>
+                <li>Prefer strict origin validation when traffic reaches a backend server</li>
+            </ul>
+
+            <h2 id="ddos-waf">DDoS protection and the WAF</h2>
+            <p>
+                Distributed denial-of-service attacks try to overwhelm a site until it becomes unusable. Cloudflare’s network is built to absorb large volumes of that noise. Most small businesses never see a headline-level attack, but smaller floods, scrapers, and opportunistic hits are common. Edge protection means those events are less likely to take a client offline.
+            </p>
+            <p>
+                The Web Application Firewall (WAF) is the next layer. It inspects requests for known attack patterns: injection attempts, suspicious query strings, paths that should never be public, and other common exploit shapes. Managed rulesets cover a lot of that ground. Custom rules let us tighten things for a specific project, like locking admin routes to known IPs or rate-limiting a sensitive API.
+            </p>
+            <p>
+                We do not turn every dial to maximum and walk away. Overly aggressive rules break real users. The work is tuning: protect what matters, allow normal customer behavior, and review after launch when the traffic pattern is real instead of theoretical.
+            </p>
+
+            <h2 id="bots">Bots, forms, and Turnstile</h2>
+            <p>
+                Contact forms, quote requests, booking widgets, and login screens attract bots. Spam fills inboxes. Credential stuffing burns accounts. Fake traffic wastes analytics and ad spend.
+            </p>
+            <p>
+                Where forms need protection, we often use Cloudflare Turnstile. It is a bot challenge that is lighter on real people than old-school CAPTCHA walls, while still verifying that a submission looks human. Paired with server-side checks, rate limits, and honeypot or validation logic in the app, it cuts a large share of junk without punishing every customer.
+            </p>
+            <p>
+                For projects that need more aggressive bot scoring, Cloudflare’s bot tools can help classify automated traffic and apply different handling. Not every brochure site needs the heaviest tier. We match the control to the risk.
+            </p>
+
+            <h2 id="workers">Workers, Pages, and secrets done right</h2>
+            <p>
+                Many Blacnova Development projects run on Cloudflare Pages and Workers: static frontends, edge functions, APIs, and glue code close to the user. That is good for speed. It is also a place where secrets can leak if you are careless.
+            </p>
+            <p>
+                Our rule is blunt. API keys, database credentials, webhook tokens, and signing secrets do not live in public repos, client-side JavaScript, or committed config files. They go into Cloudflare secrets and environment bindings. Code references a binding name. The value stays in the platform.
+            </p>
+            <ul>
+                <li>Use Workers bindings for KV, R2, D1, Queues, and service-to-service calls instead of exposing credentials over public HTTP when we control both sides</li>
+                <li>Keep compatibility dates and observability enabled so production behavior is inspectable when something looks wrong</li>
+                <li>Stream and bound responses carefully so one bad request cannot turn into an expensive or unstable handler</li>
+                <li>Avoid storing request-scoped data in global Worker memory where it can leak across requests</li>
+            </ul>
+            <p>
+                When a project needs object storage, we use R2 with least-privilege access. When it needs structured data at the edge, D1 or another appropriate store gets scoped to what the Worker actually needs. The principle is the same everywhere: the app should only be able to touch what it must.
+            </p>
+
+            <h2 id="access">Admin access and least privilege</h2>
+            <p>
+                Public marketing pages and private dashboards are not the same surface. Staging environments, admin panels, and internal tools deserve tighter gates.
+            </p>
+            <p>
+                Depending on the project, that can mean Cloudflare Access (Zero Trust style login in front of a URL), IP allowlists for temporary staging, separate environments so production credentials never sit in a preview deploy, and role-based permissions inside the app itself. Clients should not share one master password across five people and a contractor. We design so access can be granted and revoked cleanly.
+            </p>
+
+            <h2 id="code">Security habits in the code itself</h2>
+            <p>
+                Cloudflare stops a lot. It does not forgive a site that stores passwords in plain text, trusts every form field, or leaves an open redirect. Application security still belongs to us.
+            </p>
+            <ul>
+                <li><strong class="text-white">Validate input on the server.</strong> Client-side checks improve UX. They are not a security boundary.</li>
+                <li><strong class="text-white">Use parameterized queries and safe data access.</strong> Never assemble SQL or commands from raw user strings.</li>
+                <li><strong class="text-white">Set sensible security headers.</strong> Content Security Policy, frame protections, and related headers reduce common browser-side attacks when configured carefully.</li>
+                <li><strong class="text-white">Keep dependencies current.</strong> Abandoned packages and known CVEs are an open invitation.</li>
+                <li><strong class="text-white">Log what helps, not what harms.</strong> Structured logs for debugging. No dumping full payment payloads or passwords into log streams.</li>
+                <li><strong class="text-white">Separate environments.</strong> Dev, preview, and production should not share the same secrets or databases.</li>
+            </ul>
+            <p>
+                For higher-risk builds (payments, health-adjacent data, auth-heavy portals), we add threat modeling early: what is valuable, who might want it, and what fails closed if a piece of the system dies.
+            </p>
+
+            <h2 id="what-you-get">What clients get in practice</h2>
+            <p>
+                You do not need to memorize product names. You should walk away knowing the posture:
+            </p>
+            <ol>
+                <li><strong class="text-white">Traffic hits Cloudflare first</strong> for caching, TLS, and attack absorption.</li>
+                <li><strong class="text-white">Firewall and rate rules</strong> reduce obvious exploit and abuse patterns.</li>
+                <li><strong class="text-white">Forms and sensitive endpoints</strong> get bot and abuse controls when needed.</li>
+                <li><strong class="text-white">Secrets stay out of the browser and out of git.</strong></li>
+                <li><strong class="text-white">Admin and staging surfaces</strong> are locked down harder than the public site.</li>
+                <li><strong class="text-white">The application itself</strong> is built with validation, safe data access, and least privilege.</li>
+            </ol>
+            <p>
+                That stack scales from a simple Mesilla Valley marketing site to a custom app with APIs and authenticated users. The intensity changes with the risk. The baseline does not disappear because a project is “small.”
+            </p>
+
+            <div class="cta-box">
+                <h3 class="mt-0!">Building something that needs to stay online and trustworthy?</h3>
+                <p class="mb-4">Tell us what you are launching. We will scope the product and the security layer together, not as an afterthought.</p>
+                <p class="mb-0">
+                    <a href="https://www.blacnova.net/#contact">Start a project on blacnova.net</a>
+                </p>
+            </div>
+
+            <h2 id="faq">FAQ</h2>
+
+            <h3>Why Cloudflare instead of only relying on the host?</h3>
+            <p>
+                Hosts matter. Edge protection still changes the game. Cloudflare reduces how much junk reaches your origin, speeds up static delivery worldwide, and centralizes TLS, WAF, and bot controls in one place we already operate well.
+            </p>
+
+            <h3>Does this replace secure coding?</h3>
+            <p>
+                No. Cloudflare is a strong outer layer. Bugs, leaked keys, and weak authentication still break projects. We use both: platform defenses and disciplined application work.
+            </p>
+
+            <h3>Will security features slow my site down?</h3>
+            <p>
+                Done right, the opposite is common. Caching and edge delivery usually make sites feel faster. Challenges and strict rules are aimed at suspicious traffic, not every ordinary visitor.
+            </p>
+
+            <h3>Is this only for large companies?</h3>
+            <p>
+                No. Small Las Cruces businesses get attacked by the same automated scanners as everyone else. The difference is they often have less time and staff to recover. A sane Cloudflare baseline is one of the highest leverage protections you can add without hiring a full security department.
+            </p>
+
+            <h3>Can you take over security on a site you did not build?</h3>
+            <p>
+                Often yes. We can put Cloudflare in front, harden DNS and TLS, add Turnstile to forms, review obvious application issues, and outline what still needs a deeper rebuild. Start with a scoped audit conversation.
+            </p>
+
+            <h2 id="next">Security is part of the product</h2>
+            <p>
+                Clients hire Blacnova Development to ship something that works. Working includes staying available, keeping customer data from becoming someone else’s spreadsheet, and not waking up to a defaced homepage.
+            </p>
+            <p>
+                Cloudflare gives us a serious edge network, WAF and DDoS posture, bot and form tools, Workers and Pages for modern delivery, and a clean way to handle secrets. Combined with careful engineering, that is how we treat security on client projects: practical, layered, and built in from the first deploy, not promised in a slide after the damage is done.
+            </p>
+            <p>
+                <a href="https://www.blacnova.net/#contact">Request a quote</a> ·
+                <a href="../website-design-las-cruces-mesilla/index.html">Las Cruces web design guide</a> ·
+                <a href="../../index.html">Back to the blog</a>
+            </p>
+        </article>
+
+        <section class="mt-20" aria-labelledby="related-heading">
+            <h2 id="related-heading" class="text-3xl font-semibold text-white mb-6">More from Blacnova Development</h2>
+            <div class="grid gap-5">
+                <a href="../las-cruces-business-resources/index.html" class="block p-6 rounded-lg bg-[#161618] hover:bg-[#1c1c1e] border border-white/5">
+                    <p class="text-base font-medium text-white">Las Cruces business resources</p>
+                    <p class="text-base text-gray-400 mt-2">Local printers, free counseling, and website or app help for Mesilla Valley businesses.</p>
+                </a>
+                <a href="../website-design-las-cruces-mesilla/index.html" class="block p-6 rounded-lg bg-[#161618] hover:bg-[#1c1c1e] border border-white/5">
+                    <p class="text-base font-medium text-white">Website Design in Las Cruces &amp; Mesilla, NM</p>
+                    <p class="text-base text-gray-400 mt-2">What strong local website design looks like for businesses in the valley.</p>
+                </a>
+            </div>
+        </section>
+
+        <footer class="mt-16 pt-8 border-t border-white/20 text-center text-white/60">
+            <a href="../../index.html" aria-label="Blacnova Development Blog home">
+                <img src="https://www.blacnova.net/img/bn.png" alt="Blacnova Development" class="h-16 mx-auto mb-4" width="64" height="64">
+            </a>
+            <p class="text-white/70">Web design, apps, and secure delivery in Las Cruces and Mesilla, New Mexico.</p>
+            <p class="mt-6">&copy; <span id="year">2026</span> Blacnova Development. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('.header');
+            const headerContent = document.querySelector('.header-content');
+            const logo = document.querySelector('.logo');
+            const handleScroll = () => {
+                if (!header || !headerContent || !logo) return;
+                const isScrolled = window.scrollY > 50;
+                header.classList.toggle('scrolled', isScrolled);
+                headerContent.classList.toggle('h-16', isScrolled);
+                headerContent.classList.toggle('h-24', !isScrolled);
+                logo.classList.toggle('h-12', isScrolled);
+                logo.classList.toggle('h-20', !isScrolled);
+            };
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+        });
+    </script>
+    <script src="../../js/PreviousPage.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blog.blacnova.net/sitemap.xml
+Host: https://blog.blacnova.net
